@@ -1,0 +1,73 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.char {
+    display: inline-block;
+
+    margin: 0;
+
+    border-right: 2px solid transparent;
+    border-bottom: 1px solid transparent;
+
+    font-family: 'Roboto Mono', monospace;
+}
+
+.char.wrong {
+    background: red;
+    color: white;
+}
+
+.char.correct {
+    color: green;
+}
+
+.char.curr {
+    border-right: 2px solid black;
+    background: #e6e6e6;
+}
+
+.char.space {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tynput {
+    position: fixed;
+    width: 0px;
+    height: 0px;
+    top: -100px;
+    left: -100px;
+}
+
+.keyboardcont {
+    position: relative;
+    margin: 8px;
+}
+
+.keyboardcont > .overlay {
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+.wpmresults-cont {
+    display: none;
+    text-align: center;
+}
+
+.warmuptitle {
+    text-align: center;
+}
