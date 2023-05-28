@@ -1,6 +1,10 @@
 import { warmups } from "./modes/warmups.js";
-import { TestResult } from "./testResult.js";
+import { TestResult } from "./test-result.js";
 
-class WarmUpGenerator {
-    
+export class WarmUpGenerator {
+    constructor(name) {
+        this.warmup = warmups[name];
+        this.warmupIndex = 0;
+        this.testResults = [];
+    }
 }
