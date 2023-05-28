@@ -1,4 +1,4 @@
-import { TestResult } from "./test-result";
+import { TestResult } from "./test-result.js";
 
 /*
 Typing Input Manager
@@ -26,11 +26,11 @@ class TynputManager {
 
         this.tynputFocused = true;
 
-        
+        this.focusTynput();
         document.addEventListener("keydown", this.focusTynput.bind(this));
 
-        typingCont.addEventListener("click", this.focusTynput.bind(this));
-        overlay.addEventListener("click", this.focusTynput.bind(this));
+        this.testCont.addEventListener("click", this.focusTynput.bind(this));
+        this.focusOverlay.addEventListener("click", this.focusTynput.bind(this));
 
         this.inputEl.addEventListener("focus", () => {
             this.focusOverlay.style.display = "none";
@@ -42,13 +42,12 @@ class TynputManager {
 
         this.inputEl.addEventListener("keydown", e => {
             // if (!this.testResult) return;
-            const idx = this.cIdx;
             if (e.key == "Backspace") {
-                if (idx == 0) return;
-                this.els[idx].classList.remove("curr", "wrong", "correct");
-                idx--;
-                this.els[idx].classList.remove("wrong", "correct");
-                this.els[idx].classList.add("curr");
+                if (this.cIdx == 0) return;
+                this.els[this.cIdx].classList.remove("curr", "wrong", "correct");
+                this.cIdx--;
+                this.els[this.cIdx].classList.remove("wrong", "correct");
+                this.els[this.cIdx].classList.add("curr");
             }
 
             // not a typed key, or command (could happen!)
@@ -56,28 +55,29 @@ class TynputManager {
                 return;
             }
 
-            if (idx == 0) {
+            if (this.cIdx == 0) {
                 this.testResult.begin();
             }
 
-            this.els[idx].classList.remove("curr");
+            this.els[this.cIdx].classList.remove("curr");
 
-            if (this.text[idx] == e.key) {
-                this.els[idx].classList.add("correct");
+            if (this.text[this.cIdx] == e.key) {
+                this.els[this.cIdx].classList.add("correct");
                 this.testResult.correct++;
             } else {
-                this.els[idx].classList.add("wrong");
+                this.els[this.cIdx].classList.add("wrong");
                 this.testResult.wrong++;
             }
 
             this.testResult.chars++;
-            idx++;
-            if (idx >= this.els.length) {
+            this.cIdx++;
+            if (this.cIdx >= this.els.length) {
                 this.testResult.end();
-                this.listener.onEnd(this.testResult, this);
+                this.listener._endTest(this.testResult);
+                return;
             }
 
-            this.els[idx].classList.add("curr");
+            this.els[this.cIdx].classList.add("curr");
         });
     }
 
@@ -121,15 +121,24 @@ class TynputManager {
 const tynput = new TynputManager();
 
 export class TynputListener {
-    constructor() {
-        this.tynput = tynput;
+    newTest(title, text) {
+        tynput.newTest(title, text, this);
     }
 
-    newTest(title, text) {
-        this.tynput.newTest(title, text, this);
+    _endTest(testResult) {
+        this.endFn(testResult);
     }
-    onEnd(_testResult, _manager) { }
+
+    /**
+     * When a test has been completed
+     * @param {(result: TestResult) => void} endFn handler
+     */
+    onEnd(endFn) {
+        this.endFn = endFn;
+    }
+
     clear() {
-        // todos
+        tynput.cIdx = 0;
+        this.testResult = null;
     }
 }

@@ -1,17 +1,6 @@
 import { warmups } from "../modes/warmups.js";
-import { TestResult } from "./test-result.js";
 import { TynputListener } from "./tynput.js";
-
-function randomk(arr, amt, sep = true) {
-    let out = "";
-    for (let i = 0; i < amt - 1; i++) {
-        out += random(arr) + (sep ? " " : "");
-    }
-
-    out += random(arr);
-
-    return out;
-}
+import { randomk } from "./utils.js";
 
 export class WarmUpGenerator {
     constructor(name) {
@@ -19,14 +8,20 @@ export class WarmUpGenerator {
         this.warmupIndex = 0;
         this.testResults = [];
         this.listener = new TynputListener();
+
+        this.listener.onEnd(res => {
+            console.log(res);
+        });
     }
 
     init() {
         const warmup = this.warmup[this.warmupIndex];
-        this.listener.newTest(warmup.name, );
+        const text = this.genText(warmup);
+        this.listener.newTest(warmup.name, text);
     }
 
-    genText(list) {
-
+    genText(warmup) {
+        const list = warmup.list;
+        return randomk(list, 1, !warmup.noSpace);
     }
 }
