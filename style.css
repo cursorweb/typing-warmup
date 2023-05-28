@@ -34,7 +34,7 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.user-input {
+.typing-page>.user-input {
     position: fixed;
     width: 0px;
     height: 0px;
@@ -42,12 +42,12 @@ body {
     left: -100px;
 }
 
-.keyboardcont {
+.typing-page>.keyboardcont {
     position: relative;
     margin: 8px;
 }
 
-.keyboardcont > .overlay {
+.keyboardcont>.overlay {
     background: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 0;
@@ -63,11 +63,11 @@ body {
     font-size: 30px;
 }
 
-.wpmresults-cont {
-    display: none;
+.typing-page>.test-title {
     text-align: center;
 }
 
-.test-title {
+.wpmresults-page {
+    display: none;
     text-align: center;
 }

@@ -56,7 +56,7 @@ class TynputManager {
                 return;
             }
 
-            if (this.cIdx == 0) {
+            if (this.cIdx == 0 && !e.shiftKey) {
                 this.testResult.begin();
             }
 

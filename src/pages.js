@@ -3,8 +3,8 @@
 // export const typingPageCont = document.querySelector(".typing-cont");
 
 export const pages = {
-    results: document.querySelector(".wpmresults-cont"),
-    typing: document.querySelector(".typing-cont")
+    results: document.querySelector(".wpmresults-page"),
+    typing: document.querySelector(".typing-page")
 };
 
 export function transition(curr, prev) {

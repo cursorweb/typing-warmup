@@ -14,6 +14,8 @@ export class WarmUpGenerator {
         this.listener.onEnd(res => {
             this.warmupIndex++;
             if (this.warmupIndex >= this.warmup.length) {
+                console.log(this.testResults);
+
                 const resultEls = [];
                 for (const result of this.testResults) {
                     resultEls.push(this.createResultEl(result));
