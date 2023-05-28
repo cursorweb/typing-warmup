@@ -43,7 +43,6 @@ class TynputManager {
         });
 
         this.inputEl.addEventListener("keydown", e => {
-            if (!this.testResult) return;
             if (e.key == "Backspace") {
                 if (this.cIdx == 0) return;
                 this.els[this.cIdx].classList.remove("curr", "wrong", "correct");

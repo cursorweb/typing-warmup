@@ -1,4 +1,6 @@
 import { warmups } from "../modes/warmups.js";
+import { pages, transition } from "./pages.js";
+import { TestResult } from "./test-result.js";
 import { TynputListener } from "./tynput.js";
 import { randomk } from "./utils.js";
 
@@ -11,6 +13,16 @@ export class WarmUpGenerator {
 
         this.listener.onEnd(res => {
             this.warmupIndex++;
+            if (this.warmupIndex >= this.warmup.length) {
+                const resultEls = [];
+                for (const result of this.testResults) {
+                    resultEls.push(this.createResultEl(result));
+                }
+
+                pages.results.append(...resultEls);
+                transition(pages.typing, pages.results);
+                return;
+            }
             this.testResults.push(res);
             this.makeTest();
         });
@@ -24,6 +36,32 @@ export class WarmUpGenerator {
 
     genText(warmup) {
         const list = warmup.list;
-        return randomk(list, 50, !warmup.noSpace);
+        return randomk(list, 1, !warmup.noSpace);
+    }
+
+    /**
+     * Create result
+     * @param {TestResult} result Result
+     * @returns {HTMLDivElement}
+     */
+    createResultEl(result) {
+        const wpm = result.calcWpm();
+        const acc = result.calcAcc();
+        const title = result.name;
+
+        const wpmResultEl = document.createElement("div");
+        wpmResultEl.classList.add("wpmresult");
+
+        const titleEl = document.createElement("div");
+        titleEl.textContent = title;
+
+        const wpmEl = document.createElement("div");
+        wpmEl.textContent = "WPM: " + wpm.toFixed(2);
+
+        const accEl = document.createElement("div");
+        accEl.textContent = "Acc: " + acc.toFixed(2);
+
+        wpmResultEl.append(titleEl, wpmEl, accEl);
+        return wpmResultEl;
     }
 }
