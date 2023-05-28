@@ -10,11 +10,13 @@ export class WarmUpGenerator {
         this.listener = new TynputListener();
 
         this.listener.onEnd(res => {
-            console.log(res);
+            this.warmupIndex++;
+            this.testResults.push(res);
+            this.makeTest();
         });
     }
 
-    init() {
+    makeTest() {
         const warmup = this.warmup[this.warmupIndex];
         const text = this.genText(warmup);
         this.listener.newTest(warmup.name, text);
@@ -22,6 +24,6 @@ export class WarmUpGenerator {
 
     genText(warmup) {
         const list = warmup.list;
-        return randomk(list, 1, !warmup.noSpace);
+        return randomk(list, 50, !warmup.noSpace);
     }
 }
