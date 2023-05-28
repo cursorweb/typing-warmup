@@ -34,7 +34,7 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.tynput {
+.user-input {
     position: fixed;
     width: 0px;
     height: 0px;

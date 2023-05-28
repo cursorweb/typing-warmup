@@ -1,4 +1,4 @@
-class TestResult {
+export class TestResult {
     constructor(name) {
         this.name = name;
         this.chars = 0;

@@ -1,4 +1,4 @@
-const warmups = {
+export const warmups = {
     "English": [
         // common letter pairs
         {
