@@ -24,6 +24,8 @@ class TynputManager {
          */
         this.focusOverlay = document.querySelector(".overlay");
 
+        this.testTitle = document.querySelector(".test-title");
+
         this.tynputFocused = true;
 
         this.focusTynput();
@@ -41,7 +43,7 @@ class TynputManager {
         });
 
         this.inputEl.addEventListener("keydown", e => {
-            // if (!this.testResult) return;
+            if (!this.testResult) return;
             if (e.key == "Backspace") {
                 if (this.cIdx == 0) return;
                 this.els[this.cIdx].classList.remove("curr", "wrong", "correct");
@@ -82,7 +84,6 @@ class TynputManager {
     }
 
     focusTynput() {
-        // if (!this.testResult) return;
         this.inputEl.focus();
         this.focusOverlay.style.display = "none";
     }
@@ -94,6 +95,8 @@ class TynputManager {
      * @param {TynputListener} listener listener
      */
     newTest(title, text, listener) {
+        this.clear();
+        this.testTitle.textContent = title;
         this.cIdx = 0;
         this.text = text;
         this.listener = listener;
@@ -116,6 +119,12 @@ class TynputManager {
         this.els[0].classList.add("curr");
         this.testCont.append(...this.els);
     }
+    
+    clear() {
+        this.cIdx = 0;
+        this.testResult = null;
+        this.testCont.textContent = "";
+    }
 }
 
 const tynput = new TynputManager();
@@ -135,10 +144,5 @@ export class TynputListener {
      */
     onEnd(endFn) {
         this.endFn = endFn;
-    }
-
-    clear() {
-        tynput.cIdx = 0;
-        this.testResult = null;
     }
 }
