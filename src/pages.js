@@ -11,3 +11,5 @@ export function transition(curr, prev) {
     curr.style.display = "none";
     prev.style.display = "block";
 }
+
+export const resultsCont = document.querySelector(".wpmresults");

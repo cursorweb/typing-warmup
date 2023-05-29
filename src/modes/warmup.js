@@ -1,8 +1,8 @@
-import { warmups } from "../modes/warmups.js";
-import { pages, transition } from "./pages.js";
-import { TestResult } from "./test-result.js";
-import { TynputListener } from "./tynput.js";
-import { randomk } from "./utils.js";
+import { warmups } from "./data/warmups.js";
+import { pages, transition, resultsCont } from "../pages.js";
+import { TestResult } from "../typing/test-result.js";
+import { TynputListener } from "../typing/tynput.js";
+import { randomk } from "../utils.js";
 
 export class WarmUpGenerator {
     constructor(name) {
@@ -21,7 +21,7 @@ export class WarmUpGenerator {
                     resultEls.push(this.createResultEl(result));
                 }
 
-                pages.results.append(...resultEls);
+                resultsCont.append(...resultEls);
                 transition(pages.typing, pages.results);
                 return;
             }
