@@ -71,3 +71,37 @@ body {
     display: none;
     text-align: center;
 }
+
+.warmup-select {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
+}
+
+.select-group {
+    background: rgb(255, 200, 136);
+    padding: 10px;
+    flex: 0 1 250px;
+}
+
+.select-group>.title {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.5rem;
+}
+
+.select-mode {
+    background: rgb(255, 243, 136);
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.select-mode:hover {
+    cursor: pointer;
+    background: rgb(202, 193, 106);
+}
+
+.select-mode>.title {
+    font-weight: bolder;
+}

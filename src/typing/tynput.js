@@ -126,7 +126,7 @@ class TynputManager {
     }
 }
 
-const tynput = new TynputManager();
+export const tynput = new TynputManager();
 
 export class TynputListener {
     newTest(title, text) {
