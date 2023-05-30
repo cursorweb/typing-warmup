@@ -1,4 +1,4 @@
-import { TynputListener, tynput } from "../typing/tynput";
+import { TynputListener, tynput } from "../typing/tynput.js";
 
 export class TypeMode {
     constructor() {
