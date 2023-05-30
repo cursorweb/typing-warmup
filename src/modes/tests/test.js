@@ -1,7 +1,5 @@
 import { tests } from "./data.js";
 import { pages, transition, resultsCont } from "../../pages.js";
-import { TestResult } from "../../typing/test-result.js";
-import { randomk } from "../utils.js";
 import { TypeMode } from "../mode.js";
 
 export class TestGenerator extends TypeMode {
@@ -16,10 +14,7 @@ export class TestGenerator extends TypeMode {
     }
 
     begin() {
-
-    }
-
-    genText() {
-        return randomk(this.test.list, 1, warmup.noSpace);
+        const text = this.genText(this.test.list, this.test.noSpace);
+        this.listener.newTest(this.test.title, text);
     }
 }

@@ -39,4 +39,7 @@ function elsFromList(list, onClick) {
 warmupsEl.append(...elsFromList(warmups, (i) => {
     
 }));
-testsEl.append(...elsFromList(tests));
+
+testsEl.append(...elsFromList(tests, (i) => {
+    
+}));

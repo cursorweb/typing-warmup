@@ -1,7 +1,5 @@
 import { warmups } from "./data.js";
 import { pages, transition, resultsCont } from "../../pages.js";
-import { TestResult } from "../../typing/test-result.js";
-import { randomk } from "../utils.js";
 import { TypeMode } from "../mode.js";
 
 export class WarmUpGenerator extends TypeMode {
@@ -31,12 +29,7 @@ export class WarmUpGenerator extends TypeMode {
 
     begin() {
         const warmup = this.warmup.tests[this.warmupIndex];
-        const text = this.genText(warmup);
-        this.listener.newTest(warmup.name, text);
-    }
-
-    genText(warmup) {
-        const list = warmup.list;
-        return randomk(list, 1, warmup.noSpace);
+        const text = this.genText(warmup.list, warmup.noSpace);
+        this.listener.newTest(warmup.title, text);
     }
 }

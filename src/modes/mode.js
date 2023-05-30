@@ -1,4 +1,8 @@
 import { TynputListener, tynput } from "../typing/tynput.js";
+import { randomk } from "./utils.js";
+
+/** TODO REMOVE */
+const DEBUG_AMT = 50;
 
 export class TypeMode {
     constructor() {
@@ -11,10 +15,14 @@ export class TypeMode {
     begin() {}
 
     /**
-     * Don't forget to make null!
+     * Don't forget to make this null!
      */
     end() {
         tynput.clear();
+    }
+
+    genText(list, space, amt = DEBUG_AMT) {
+        return randomk(list, amt, space);
     }
     
     /**
