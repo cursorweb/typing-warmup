@@ -8,7 +8,7 @@ export const tests = [
     {
         "title": "Right Hand DV",
         "desc": "Right Hand Only! (Dvorak Layout)",
-        "list": ["d", "h", "t", "n", "s", "-", "f", "g", "c", "r", "l", "/", "=", "\\\\", "x", "b", "m", "w", "v", "z", "7", "8", "9", "0", "[", "]"],
+        "list": ["d", "h", "t", "n", "s", "-", "f", "g", "c", "r", "l", "/", "=", "\\", "x", "b", "m", "w", "v", "z", "7", "8", "9", "0", "[", "]"],
         "noSpace": true
     }
     /*

@@ -1,14 +1,18 @@
-import { tests } from "./tests/data.js";
-import { warmups } from "./warmups/data.js";
+import { tests } from "./modes/tests/data.js";
+import { TestGenerator } from "./modes/tests/test.js";
+import { warmups } from "./modes/warmups/data.js";
+import { WarmUpGenerator } from "./modes/warmups/warmup.js";
 
 const warmupsEl = document.querySelector(".warmup>.selection");
 const testsEl = document.querySelector(".tests>.selection");
 // const pacerEl = document.querySelector(".pacer>.selection");
 
+let currentTest = null;
+
 /**
  * List of Things.
  * @param {{title:string, desc:string}[]} list List
- * @param {(i: number) => () => void} onClick 
+ * @param {(i: number) => void} onClick 
  * @returns List of Select-mode 'buttons'
  */
 function elsFromList(list, onClick) {
@@ -28,7 +32,11 @@ function elsFromList(list, onClick) {
 
         el.append(title, desc);
 
-        el.addEventListener("click", onClick(i));
+        el.addEventListener("click", () => {
+            currentTest?.end();
+            onClick(i);
+            currentTest.begin();
+        });
 
         out.push(el);
     }
@@ -36,10 +44,10 @@ function elsFromList(list, onClick) {
     return out;
 }
 
-warmupsEl.append(...elsFromList(warmups, (i) => {
-    
+warmupsEl.append(...elsFromList(warmups, i => {
+    currentTest = new WarmUpGenerator(i);
 }));
 
-testsEl.append(...elsFromList(tests, (i) => {
-    
+testsEl.append(...elsFromList(tests, i => {
+    currentTest = new TestGenerator(i);
 }));
