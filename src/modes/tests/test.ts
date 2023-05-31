@@ -1,9 +1,10 @@
-import { tests } from "./data.js";
-import { pages, transition, resultsCont } from "../../pages.js";
-import { TypeMode } from "../mode.js";
+import { ITest, tests } from "./data";
+import { pages, transition, resultsCont } from "../../pages";
+import { TypeMode } from "../mode";
 
 export class TestGenerator extends TypeMode {
-    constructor(idx) {
+    test: ITest;
+    constructor(idx: number) {
         super();
         this.test = tests[idx];
 

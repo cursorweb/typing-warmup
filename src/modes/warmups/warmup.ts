@@ -1,9 +1,13 @@
-import { warmups } from "./data.js";
-import { pages, transition, resultsCont } from "../../pages.js";
-import { TypeMode } from "../mode.js";
+import { IWarmup, warmups } from "./data";
+import { pages, transition, resultsCont } from "../../pages";
+import { TypeMode } from "../mode";
 
 export class WarmUpGenerator extends TypeMode {
-    constructor(idx) {
+    warmup: IWarmup;
+    warmupIndex: number;
+    testResults: any[];
+
+    constructor(idx: number) {
         super();
         this.warmup = warmups[idx];
         this.warmupIndex = 0;

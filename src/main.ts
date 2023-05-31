@@ -1,2 +1,2 @@
-import "./gen-selection.js";
+import "./gen-selection";
 console.log('hello, world!');

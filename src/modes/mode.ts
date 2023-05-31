@@ -1,10 +1,13 @@
-import { TynputListener, tynput } from "../typing/tynput.js";
-import { randomk } from "./utils.js";
+import { TestResult } from "../typing/test-result";
+import { TynputListener, tynput } from "../typing/tynput";
+import { randomk } from "./utils";
 
 /** TODO REMOVE */
 const DEBUG_AMT = 50;
 
-export class TypeMode {
+export abstract class TypeMode {
+    listener: TynputListener;
+
     constructor() {
         this.listener = new TynputListener();
     }
@@ -21,16 +24,11 @@ export class TypeMode {
         tynput.clear();
     }
 
-    genText(list, space, amt = DEBUG_AMT) {
+    genText(list: string[], space: boolean, amt = DEBUG_AMT) {
         return randomk(list, amt, space);
     }
     
-    /**
-     * Create result
-     * @param {TestResult} result Result
-     * @returns {HTMLDivElement}
-     */
-    createResultEl(result) {
+    createResultEl(result: TestResult) {
         const wpm = result.calcWpm();
         const acc = result.calcAcc();
         const title = result.name;

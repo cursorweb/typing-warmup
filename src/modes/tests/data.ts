@@ -1,3 +1,9 @@
+export interface ITest {
+    title: string;
+    desc: string;
+    list: string[];
+    noSpace: boolean;
+}
 export const tests = [
     {
         "title": "Left Hand DV",

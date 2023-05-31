@@ -2,12 +2,12 @@
 // export const wpmResults = document.querySelector(".wpmresults");
 // export const typingPageCont = document.querySelector(".typing-cont");
 
-export const pages = {
+export const pages: Record<string, HTMLDivElement> = {
     results: document.querySelector(".wpmresults-page"),
     typing: document.querySelector(".typing-page")
 };
 
-export function transition(curr, prev) {
+export function transition(curr: HTMLDivElement, prev: HTMLDivElement) {
     curr.style.display = "none";
     prev.style.display = "block";
 }

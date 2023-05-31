@@ -1,5 +1,12 @@
 export class TestResult {
-    constructor(name) {
+    name: string;
+    chars: number;
+    correct: number;
+    wrong: number;
+    start: Date;
+    endTime: Date;
+
+    constructor(name: string) {
         this.name = name;
         this.chars = 0;
         this.correct = 0;
@@ -11,14 +18,14 @@ export class TestResult {
     }
 
     end() {
-        this.end = new Date();
+        this.endTime = new Date();
     }
 
     calcWpm() {
         const words = this.chars / 5;
         const errors = this.chars - this.correct;
         
-        const time = (this.end.getTime() - this.start.getTime()) / (1000 * 60);
+        const time = (this.endTime.getTime() - this.start.getTime()) / (1000 * 60);
         return Math.max(0, (words - errors / 5) / time);
     }
 

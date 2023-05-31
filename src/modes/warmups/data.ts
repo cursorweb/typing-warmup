@@ -1,4 +1,14 @@
-export const warmups = [
+export interface IWarmup {
+    title: string,
+    desc: string,
+    tests: {
+        title: string,
+        list: string[],
+        noSpace: boolean
+    }[]
+}
+
+export const warmups: IWarmup[] = [
     {
         "title": "English",
         "desc": "Basic English Warmup.",

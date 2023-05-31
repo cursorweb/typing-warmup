@@ -1,21 +1,16 @@
-import { tests } from "./modes/tests/data.js";
-import { TestGenerator } from "./modes/tests/test.js";
-import { warmups } from "./modes/warmups/data.js";
-import { WarmUpGenerator } from "./modes/warmups/warmup.js";
+import { TypeMode } from "./modes/mode";
+import { tests } from "./modes/tests/data";
+import { TestGenerator } from "./modes/tests/test";
+import { warmups } from "./modes/warmups/data";
+import { WarmUpGenerator } from "./modes/warmups/warmup";
 
 const warmupsEl = document.querySelector(".warmup>.selection");
 const testsEl = document.querySelector(".tests>.selection");
 // const pacerEl = document.querySelector(".pacer>.selection");
 
-let currentTest = null;
+let currentTest: TypeMode = null;
 
-/**
- * List of Things.
- * @param {{title:string, desc:string}[]} list List
- * @param {(i: number) => void} onClick 
- * @returns List of Select-mode 'buttons'
- */
-function elsFromList(list, onClick) {
+function elsFromList(list: {title:string, desc:string}[], onClick: (i: number) => void) {
     const out = [];
     for (let i = 0; i < list.length; i++) {
         const itm = list[i];

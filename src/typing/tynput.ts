@@ -1,4 +1,4 @@
-import { TestResult } from "./test-result.js";
+import { TestResult } from "./test-result";
 
 /*
 Typing Input Manager
@@ -8,20 +8,20 @@ A singleton - ish type class
 Exposes the 'listener' class which is the primary way to communicate between the two.
 */
 class TynputManager {
+    inputEl: HTMLInputElement;
+    testCont: HTMLDivElement;
+    focusOverlay: HTMLDivElement;
+    testTitle: HTMLDivElement;
+    tynputFocused: boolean;
+    cIdx: number;
+    els: Element[];
+    testResult: TestResult;
+    text: string;
+    listener: TynputListener;
+
     constructor() {
-        /**
-         * @type {HTMLInputElement}
-         */
         this.inputEl = document.querySelector(".user-input");
-
-        /**
-         * @type {HTMLDivElement}
-         */
         this.testCont = document.querySelector(".test-cont");
-
-        /**
-         * @type {HTMLDivElement}
-         */
         this.focusOverlay = document.querySelector(".overlay");
 
         this.testTitle = document.querySelector(".test-title");
@@ -42,7 +42,7 @@ class TynputManager {
             this.focusOverlay.style.display = "flex";
         });
 
-        this.inputEl.addEventListener("keydown", e => {
+        this.inputEl.addEventListener("keydown", (e: { key: string | any[]; altKey: any; ctrlKey: any; metaKey: any; shiftKey: any; }) => {
             if (e.key == "Backspace") {
                 if (this.cIdx == 0) return;
                 this.els[this.cIdx].classList.remove("curr", "wrong", "correct");
@@ -87,13 +87,7 @@ class TynputManager {
         this.focusOverlay.style.display = "none";
     }
 
-    /**
-     * Create a new test
-     * @param {string} title title
-     * @param {string} text text
-     * @param {TynputListener} listener listener
-     */
-    newTest(title, text, listener) {
+    newTest(title: string, text: string, listener: TynputListener) {
         this.clear();
         this.testTitle.textContent = title;
         this.cIdx = 0;
@@ -129,19 +123,22 @@ class TynputManager {
 export const tynput = new TynputManager();
 
 export class TynputListener {
-    newTest(title, text) {
+    newTest(title: string, text: string) {
         tynput.newTest(title, text, this);
     }
 
-    _endTest(testResult) {
+    _endTest(testResult: any) {
         this.endFn(testResult);
+    }
+    endFn(testResult: any) {
+        throw new Error("Method not implemented.");
     }
 
     /**
      * When a test has been completed
      * @param {(result: TestResult) => void} endFn handler
      */
-    onEnd(endFn) {
+    onEnd(endFn: { (res: any): void; (res: any): void; }) {
         this.endFn = endFn;
     }
 }
