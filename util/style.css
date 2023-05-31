@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+}
+
+input {
+    width: 50%;
+    margin: 10px;
+}
+
+div {
+    font-family: Consolas, monospace;
+}
