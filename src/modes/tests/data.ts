@@ -17,15 +17,4 @@ export const tests = [
         "list": ["d", "h", "t", "n", "s", "-", "f", "g", "c", "r", "l", "/", "=", "\\", "x", "b", "m", "w", "v", "z", "7", "8", "9", "0", "[", "]"],
         "noSpace": true
     }
-    /*
-    "Right Hand DV": {
-
-    },
-    "Left Hand QWERTY": {
-
-    },
-    "Right Hand QWERTY": {
-
-    },
-    */
 ];

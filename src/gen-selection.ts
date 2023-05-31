@@ -1,6 +1,8 @@
 import { TypeMode } from "./modes/mode";
 import { tests } from "./modes/tests/data";
 import { TestGenerator } from "./modes/tests/test";
+import { varData } from "./modes/tests/var-data";
+import { VarTestGenerator } from "./modes/tests/var-test";
 import { warmups } from "./modes/warmups/data";
 import { WarmUpGenerator } from "./modes/warmups/warmup";
 
@@ -45,4 +47,8 @@ warmupsEl.append(...elsFromList(warmups, i => {
 
 testsEl.append(...elsFromList(tests, i => {
     currentTest = new TestGenerator(i);
+}));
+
+testsEl.append(...elsFromList(varData, i => {
+    currentTest = new VarTestGenerator(i);
 }));

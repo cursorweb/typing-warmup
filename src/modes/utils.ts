@@ -12,3 +12,8 @@ export function randomk(arr: string[], amt: number, noSep = false) {
 
     return out;
 }
+
+export function drop(arr: string[], itm: string) {
+    let i = arr.indexOf(itm);
+    return arr.slice(0, i).concat(arr.slice(i + 1));
+}

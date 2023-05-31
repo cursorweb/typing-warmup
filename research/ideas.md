@@ -3,9 +3,12 @@
 * Spanish Warmup (Default)
 
 # Tests
-* MonkeyType
-* Fun ones
+* MonkeyType words
+* Fun ones left only right only
+* Accent only
 * Common near ones (these those etc)
+* Geography (close chars, far chars)
+* Capital test (do a letter then its capital form)
 * etc etc
 
 # Pacers

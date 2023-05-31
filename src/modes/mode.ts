@@ -3,7 +3,7 @@ import { TynputListener, tynput } from "../typing/tynput";
 import { randomk } from "./utils";
 
 /** TODO REMOVE */
-const DEBUG_AMT = 50;
+export const DEBUG_AMT = 50;
 
 export abstract class TypeMode {
     listener: TynputListener;
