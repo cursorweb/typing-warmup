@@ -13,16 +13,10 @@ export class WarmUpGenerator extends TypeMode {
         this.warmupIndex = 0;
         this.testResults = [];
 
-        // alert(this.warmup.tests.length);
-
         this.listener.onEnd(res => {
             this.warmupIndex++;
-            // alert(JSON.stringify(res));
             this.testResults.push(res);
             if (this.warmupIndex >= this.warmup.tests.length) {
-                // alert('done!')
-                // console.log(this.testResults);
-
                 const resultEls = [];
                 for (const result of this.testResults) {
                     resultEls.push(this.createResultEl(result));
