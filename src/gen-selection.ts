@@ -5,6 +5,7 @@ import { varData } from "./modes/tests/var-data";
 import { VarTestGenerator } from "./modes/tests/var-test";
 import { warmups } from "./modes/warmups/data";
 import { WarmUpGenerator } from "./modes/warmups/warmup";
+import { pages, transition } from "./pages";
 import { tynput } from "./typing/tynput";
 
 const warmupsEl = document.querySelector(".warmup>.selection");
@@ -32,6 +33,7 @@ function elsFromList(list: {title:string, desc:string}[], onClick: (i: number) =
 
         el.addEventListener("click", () => {
             currentTest?.end();
+            transition(pages.results, pages.typing);
             onClick(i);
             tynput.focusTynput();
             currentTest.begin();
