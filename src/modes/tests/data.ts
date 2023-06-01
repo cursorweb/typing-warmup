@@ -16,5 +16,11 @@ export const tests = [
         "desc": "Right Hand Only! (Dvorak Layout)",
         "list": ["d", "h", "t", "n", "s", "-", "f", "g", "c", "r", "l", "/", "=", "\\", "x", "b", "m", "w", "v", "z", "7", "8", "9", "0", "[", "]"],
         "noSpace": true
+    },
+    {
+        "title": "Spanish Accents",
+        "desc": "All spanish accents, including ü and ç",
+        "list": ["á", "é", "í", "ó", "ú", "Á", "É", "Ó", "Í", "Ú", "ñ", "Ñ", "ç", "Ç", "ü", "Ü"],
+        "noSpace": true
     }
 ];

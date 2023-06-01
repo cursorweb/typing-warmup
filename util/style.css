@@ -9,4 +9,6 @@ input {
 
 div {
     font-family: Consolas, monospace;
+    user-select: all;
+    padding: 10px;
 }
