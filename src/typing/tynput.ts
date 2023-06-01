@@ -52,11 +52,11 @@ class TynputManager {
             }
 
             // not a typed key, or command (could happen!)
-            if (e.key.length != 1 || e.altKey || e.ctrlKey || e.metaKey) {
+            if (e.key.length != 1 || e.altKey || e.ctrlKey || e.metaKey || e.key == "Shift") {
                 return;
             }
 
-            if (this.cIdx == 0 && !e.shiftKey) {
+            if (this.cIdx == 0) {
                 this.testResult.begin();
             }
 

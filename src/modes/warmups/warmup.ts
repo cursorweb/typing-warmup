@@ -13,12 +13,15 @@ export class WarmUpGenerator extends TypeMode {
         this.warmupIndex = 0;
         this.testResults = [];
 
+        // alert(this.warmup.tests.length);
+
         this.listener.onEnd(res => {
-            this.testResults.push(res);
-            this.begin();
             this.warmupIndex++;
+            // alert(JSON.stringify(res));
+            this.testResults.push(res);
             if (this.warmupIndex >= this.warmup.tests.length) {
-                console.log(this.testResults);
+                // alert('done!')
+                // console.log(this.testResults);
 
                 const resultEls = [];
                 for (const result of this.testResults) {
@@ -27,7 +30,10 @@ export class WarmUpGenerator extends TypeMode {
 
                 resultsCont.append(...resultEls);
                 transition(pages.typing, pages.results);
+                return;
             }
+
+            this.begin();
         });
     }
 
