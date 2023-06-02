@@ -12,7 +12,7 @@ const warmupsEl = document.querySelector(".warmup>.selection");
 const testsEl = document.querySelector(".tests>.selection");
 // const pacerEl = document.querySelector(".pacer>.selection");
 
-let currentTest: TypeMode = null;
+export let currentTest: TypeMode = null;
 
 function elsFromList(list: {title:string, desc:string}[], onClick: (i: number) => void) {
     const out = [];

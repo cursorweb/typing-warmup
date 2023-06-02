@@ -127,10 +127,11 @@ export class TynputListener {
         tynput.newTest(title, text, this);
     }
 
-    _endTest(testResult: any) {
+    _endTest(testResult: TestResult) {
         this.endFn(testResult);
     }
-    endFn(testResult: any) {
+    
+    endFn(testResult: TestResult) {
         throw new Error("Method not implemented.");
     }
 
