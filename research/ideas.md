@@ -16,6 +16,10 @@ A pacer makes you go a certain speed, and if you can do that 10 times in a row y
 * English MonkeyType
 * Spanish MonkeyType
 
+## Organization
+* Method to favorite
+* How to organize the *vast* amount of tests? Either by category or by search... maybe both!
+
 ## A note on terminology
 Each *mode* has one or more *tests*.
 *Pacers*, and *Warmups* are modes because they contain special properties aside from *tests*. *Pacers* focus on WPM, etc. and *warmups* contain multiple tests.
