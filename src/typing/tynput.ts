@@ -124,6 +124,7 @@ export const tynput = new TynputManager();
 
 export class TynputListener {
     endFn: (testResult: TestResult) => void;
+
     newTest(title: string, text: string) {
         tynput.newTest(title, text, this);
     }
