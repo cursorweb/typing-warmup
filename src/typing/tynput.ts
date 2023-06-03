@@ -26,8 +26,6 @@ class TynputManager {
 
         this.testTitle = document.querySelector(".test-title");
 
-        this.tynputFocused = true;
-
         this.focusTynput();
         document.addEventListener("keydown", this.focusTynput.bind(this));
 
@@ -36,10 +34,12 @@ class TynputManager {
 
         this.inputEl.addEventListener("focus", () => {
             this.focusOverlay.style.display = "none";
+            this.tynputFocused = true;
         });
 
         this.inputEl.addEventListener("blur", () => {
             this.focusOverlay.style.display = "flex";
+            this.tynputFocused = false;
         });
 
         this.inputEl.addEventListener("keydown", e => {
@@ -50,11 +50,11 @@ class TynputManager {
                 this.els[this.cIdx].classList.remove("wrong", "correct");
                 this.els[this.cIdx].classList.add("curr");
             }
+        });
 
-            // not a typed key, or command (could happen!)
-            if (e.key.length != 1 || e.altKey || e.ctrlKey || e.metaKey || e.key == "Shift") {
-                return;
-            }
+        this.inputEl.addEventListener("input", () => {
+            const key = this.inputEl.value.normalize();
+            this.inputEl.value = "";
 
             if (this.cIdx == 0) {
                 this.testResult.begin();
@@ -62,7 +62,7 @@ class TynputManager {
 
             this.els[this.cIdx].classList.remove("curr");
 
-            if (this.text[this.cIdx] == e.key) {
+            if (this.text[this.cIdx] == key) {
                 this.els[this.cIdx].classList.add("correct");
                 this.testResult.correct++;
             } else {
@@ -82,9 +82,12 @@ class TynputManager {
         });
     }
 
-    focusTynput() {
-        this.inputEl.focus();
-        this.focusOverlay.style.display = "none";
+    focusTynput(e: Event = null) {
+        if (!this.tynputFocused) {
+            e?.preventDefault();
+            this.inputEl.focus();
+            this.focusOverlay.style.display = "none";
+        }
     }
 
     newTest(title: string, text: string, listener: TynputListener) {
@@ -112,7 +115,7 @@ class TynputManager {
         this.els[0].classList.add("curr");
         this.testCont.append(...this.els);
     }
-    
+
     clear() {
         this.cIdx = 0;
         this.testResult = null;
