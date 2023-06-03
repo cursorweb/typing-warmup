@@ -1,11 +1,12 @@
 import { IWarmup, warmups } from "./data";
 import { pages, transition, resultsCont } from "../../pages";
 import { TypeMode } from "../mode";
+import { TestResult } from "../../typing/test-result";
 
 export class WarmUpGenerator extends TypeMode {
     warmup: IWarmup;
     warmupIndex: number;
-    testResults: any[];
+    testResults: TestResult[];
 
     constructor(idx: number) {
         super();

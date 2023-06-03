@@ -42,7 +42,7 @@ class TynputManager {
             this.focusOverlay.style.display = "flex";
         });
 
-        this.inputEl.addEventListener("keydown", (e: { key: string | any[]; altKey: any; ctrlKey: any; metaKey: any; shiftKey: any; }) => {
+        this.inputEl.addEventListener("keydown", e => {
             if (e.key == "Backspace") {
                 if (this.cIdx == 0) return;
                 this.els[this.cIdx].classList.remove("curr", "wrong", "correct");
@@ -123,22 +123,20 @@ class TynputManager {
 export const tynput = new TynputManager();
 
 export class TynputListener {
+    endFn: (testResult: TestResult) => void;
     newTest(title: string, text: string) {
         tynput.newTest(title, text, this);
     }
 
-    _endTest(testResult: any) {
+    _endTest(testResult: TestResult) {
         this.endFn(testResult);
-    }
-    endFn(testResult: any) {
-        throw new Error("Method not implemented.");
     }
 
     /**
      * When a test has been completed
-     * @param {(result: TestResult) => void} endFn handler
+     * @param endFn handler
      */
-    onEnd(endFn: { (res: any): void; (res: any): void; }) {
+    onEnd(endFn: (testResult: TestResult) => void) {
         this.endFn = endFn;
     }
 }
