@@ -12,12 +12,11 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install packages
       - run: npm ci
 
-      - name: Build typescript
       - run: npm run prod
-
-      - uses: EndBug/add-and-commit@v9
+      
+      - name: test
+        uses: EndBug/add-and-commit@v9
         with:
           message: "Compiled typescript"
