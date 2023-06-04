@@ -12,10 +12,7 @@ export abstract class TypeMode {
         this.listener = new TynputListener();
     }
 
-    /**
-     * @abstract
-     */
-    begin() {}
+    abstract begin(): void;
 
     /**
      * Don't forget to make this null!

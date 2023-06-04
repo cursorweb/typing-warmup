@@ -2,14 +2,19 @@
 * English Warmup (Default)
 * Spanish Warmup (Default)
 
-# Tests
-* MonkeyType words
-* Fun ones left only right only
+# Trainers
+These are meant to focus on specific typing technique, etc.
 * Accent only
 * Common near ones (these those etc)
 * Geography (close chars, far chars)
 * Capital test (do a letter then its capital form)
 * etc etc
+
+# Fun
+These are fun, for enjoyment :D
+* Rainbow text!!
+* Upside down
+* 
 
 # Pacers
 A pacer makes you go a certain speed, and if you can do that 10 times in a row you advance to next wpm etc
@@ -18,7 +23,8 @@ A pacer makes you go a certain speed, and if you can do that 10 times in a row y
 
 ## Organization
 * Method to favorite
-* How to organize the *vast* amount of tests? Either by category or by search... maybe both!
+* There will be a tag system, and you can toggle tests between dvorak mode and qwerty
+* You can also search for tests
 
 ## A note on terminology
 Each *mode* has one or more *tests*.
