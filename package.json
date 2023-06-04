@@ -1,0 +1,28 @@
+{
+  "name": "typing-warmup",
+  "version": "1.0.0",
+  "description": "Fun Typing Warmup Site!",
+  "scripts": {
+    "prod": "webpack --config webpack.prod.js",
+    "dev": "webpack --config webpack.dev.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cursorweb/typing-warmup.git"
+  },
+  "keywords": [
+    "typing"
+  ],
+  "author": "Coder100",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cursorweb/typing-warmup/issues"
+  },
+  "homepage": "https://github.com/cursorweb/typing-warmup#readme",
+  "devDependencies": {
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.0.4",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
+  }
+}
