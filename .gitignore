@@ -1,4 +1,3 @@
 .replit
 replit.nix
 node_modules/
-dist/
