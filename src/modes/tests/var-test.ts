@@ -15,7 +15,7 @@ export class VarTestGenerator extends TypeMode {
     }
 
     begin() {
-        const text = this.test.gen(DEBUG_AMT);
+        const text = this.test.gen.bind(this.test)(DEBUG_AMT);
         this.listener.newTest(this.test.title, text);
     }
 }
