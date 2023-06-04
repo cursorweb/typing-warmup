@@ -16,7 +16,6 @@ jobs:
 
       - run: npm run prod
       
-      - name: test
-        uses: EndBug/add-and-commit@v9
+      - uses: EndBug/add-and-commit@v9
         with:
           message: "Compiled typescript"
