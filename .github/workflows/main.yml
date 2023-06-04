@@ -1,21 +1,21 @@
-name: run-prod
-run-name: Compile typescript
-
+name: Build and Deploy
 on: [push]
-
+permissions:
+  contents: write
 jobs:
-  check-bats-version:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
 
-      - run: npm ci
+      - name: Install and Build 🔧
+        run: |
+          npm ci
+          npm run prod
 
-      - run: npm run prod
-      
-      - uses: EndBug/add-and-commit@v9
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          message: "Compiled typescript"
+          folder: .
