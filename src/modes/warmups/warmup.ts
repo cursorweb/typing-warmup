@@ -24,7 +24,7 @@ export class WarmUpGenerator extends TypeMode {
                 }
 
                 resultsCont.append(...resultEls);
-                transition(pages.typing, pages.results);
+                transition(pages.results);
                 return;
             }
 

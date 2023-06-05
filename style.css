@@ -77,12 +77,14 @@ body {
     justify-content: center;
     padding: 10px;
     gap: 10px;
+    height: 500px;
 }
 
 .select-group {
     background: rgb(255, 200, 136);
     padding: 10px;
     flex: 0 1 250px;
+    overflow: auto;
 }
 
 .select-group>.title {

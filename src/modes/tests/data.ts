@@ -22,5 +22,5 @@ export const tests = [
         "desc": "All spanish accents, including ü and ç",
         "list": ["á", "é", "í", "ó", "ú", "Á", "É", "Ó", "Í", "Ú", "ñ", "Ñ", "ç", "Ç", "ü", "Ü"],
         "noSpace": true
-    }
+    },
 ];
