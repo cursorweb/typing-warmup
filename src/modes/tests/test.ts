@@ -10,7 +10,7 @@ export class TestGenerator extends TypeMode {
 
         this.listener.onEnd(res => {
             resultsCont.append(this.createResultEl(res));
-            transition(pages.typing, pages.results);
+            transition(pages.results);
         });
     }
 

@@ -14,7 +14,7 @@ const testsEl = document.querySelector(".tests>.selection");
 
 export let currentTest: TypeMode = null;
 
-function elsFromList(list: {title:string, desc:string}[], onClick: (i: number) => void) {
+function elsFromList(list: { title: string, desc: string }[], onClick: (i: number) => void) {
     const out = [];
     for (let i = 0; i < list.length; i++) {
         const itm = list[i];
@@ -33,7 +33,7 @@ function elsFromList(list: {title:string, desc:string}[], onClick: (i: number) =
 
         el.addEventListener("click", () => {
             currentTest?.end();
-            transition(pages.results, pages.typing);
+            transition(pages.typing);
             onClick(i);
             tynput.focusTynput();
             currentTest.begin();

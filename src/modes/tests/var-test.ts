@@ -10,12 +10,12 @@ export class VarTestGenerator extends TypeMode {
 
         this.listener.onEnd(res => {
             resultsCont.append(this.createResultEl(res));
-            transition(pages.typing, pages.results);
+            transition(pages.results);
         });
     }
 
     begin() {
-        const text = this.test.gen.bind(this.test)(DEBUG_AMT);
+        const text = this.test.gen(DEBUG_AMT);
         this.listener.newTest(this.test.title, text);
     }
 }

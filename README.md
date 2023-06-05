@@ -2,6 +2,10 @@
 Get faster at typing!
 
 ## Building
-Use `npm run dev` for development, and once you are done use `npm run prod`.
+Run
+```
+npm run dev
+```
 
-> **Note:** For github pages support, please commit `dist/main.js`.
+> **Note**: At the moment, there is no way to preview the page other than hosting it yourself,
+> but `webpack-dev-server` support is coming soon.
