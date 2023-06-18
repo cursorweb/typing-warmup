@@ -34,6 +34,10 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.char.pace-caret {
+    border-right: 2px solid blue;
+}
+
 .typing-page>.user-input {
     position: fixed;
     width: 0px;

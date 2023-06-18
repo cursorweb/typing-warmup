@@ -11,13 +11,24 @@ class TynputManager {
     inputEl: HTMLInputElement;
     testCont: HTMLDivElement;
     focusOverlay: HTMLDivElement;
+
     testTitle: HTMLDivElement;
+
     tynputFocused: boolean;
+
     cIdx: number;
+
     els: Element[];
-    testResult: TestResult;
     text: string;
+
+    testResult: TestResult;
+
     listener: TynputListener;
+
+    paceWpm?: number;
+    paceInt?: ReturnType<typeof setInterval>;
+    pIdx?: number;
+
 
     constructor() {
         this.inputEl = document.querySelector(".user-input");
@@ -58,6 +69,7 @@ class TynputManager {
 
             if (this.cIdx == 0) {
                 this.testResult.begin();
+                this.paceCaret(150);
             }
 
             this.els[this.cIdx].classList.remove("curr");
@@ -120,6 +132,32 @@ class TynputManager {
         this.cIdx = 0;
         this.testResult = null;
         this.testCont.textContent = "";
+
+        if (this.paceInt) {
+            clearInterval(this.paceInt);
+            this.paceInt = null;
+        }
+    }
+
+    paceCaret(wpm = 0) {
+        if (wpm == 0) {
+            return;
+        }
+
+        this.pIdx = -1;
+
+        this.pacer();
+        this.paceInt = setInterval(this.pacer.bind(this), 60 * 1000 / (wpm * 5));
+    }
+
+    pacer() {
+        this.els[this.pIdx]?.classList.remove("pace-caret");
+        this.pIdx++;
+        if (this.pIdx >= this.els.length) {
+            clearInterval(this.paceInt);
+            return;
+        }
+        this.els[this.pIdx].classList.add("pace-caret");
     }
 }
 
