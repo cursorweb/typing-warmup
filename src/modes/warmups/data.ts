@@ -1,6 +1,6 @@
-export interface IWarmup {
-    title: string,
-    desc: string,
+import { IData } from "../idata";
+
+export interface IWarmup extends IData {
     tests: {
         title: string,
         list: string[],
