@@ -1,10 +1,11 @@
-export interface ITest {
-    title: string;
-    desc: string;
+import { IData } from "../idata";
+
+export interface ITest extends IData {
     list: string[];
     noSpace: boolean;
 }
-export const tests = [
+
+export const tests: ITest[] = [
     {
         "title": "Left Hand DV",
         "desc": "Left Hand Only! (Dvorak Layout)",

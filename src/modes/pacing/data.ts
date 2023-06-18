@@ -1,0 +1,18 @@
+import { IData } from "../idata";
+
+export interface IPacing extends IData {
+    list: string[];
+}
+
+export const tests: IPacing[] = [
+    {
+        title: "English",
+        desc: "English words",
+        list: ["the", "be", "of", "and", "a", "to", "in", "he", "have", "it", "that", "for", "they", "I", "with", "as", "not", "on", "she", "at", "by", "this", "we", "you", "do", "but", "from", "or", "which", "one", "would", "all", "will", "there", "say", "who", "make", "when", "can", "more", "if", "no", "man", "out", "other", "so", "what", "time", "up", "go", "about", "than", "into", "could", "state", "only", "new", "year", "some", "take", "come", "these", "know", "see", "use", "get", "like", "then", "first", "any", "work", "now", "may", "such", "give", "over", "think", "most", "even", "find", "day", "also", "after", "way", "many", "must", "look", "before", "great", "back", "through", "long", "where", "much", "should", "well", "people", "down", "own", "just", "because", "good", "each", "those", "feel", "seem", "how", "high", "too", "place", "little", "world", "very", "still", "nation", "hand", "old", "life", "tell", "write", "become", "here", "show", "house", "both", "between", "need", "mean", "call", "develop", "under", "last", "right", "move", "thing", "general", "school", "never", "same", "another", "begin", "while", "number", "part", "turn", "real", "leave", "might", "want", "point", "form", "off", "child", "few", "small", "since", "against", "ask", "late", "home", "interest", "large", "person", "end", "open", "public", "follow", "during", "present", "without", "again", "hold", "govern", "around", "possible", "head", "consider", "word", "program", "problem", "however", "lead", "system", "set", "order", "eye", "plan", "run", "keep", "face", "fact", "group", "play", "stand", "increase", "early", "course", "change", "help", "line"]
+    },
+    {
+        title: "Spanish",
+        desc: "Spanish words",
+        list: ["como", "su", "que", "él", "era", "para", "en", "son", "con", "ellos", "ser", "uno", "tener", "este", "desde", "por", "caliente", "palabra", "pero", "qué", "algunos", "es", "lo", "usted", "o", "tenido", "la", "de", "a", "y", "un", "nos", "lata", "otros", "eran", "hacer", "tiempo", "si", "cómo", "dicho", "cada", "decir", "hace", "conjunto", "tres", "querer", "aire", "así", "también", "jugar", "pequeño", "fin", "poner", "leer", "mano", "puerto", "grande", "deletrear", "añadir", "incluso", "tierra", "aquí", "debe", "alto", "tal", "siga", "acto", "hierro", "preguntar", "hombres", "cambio", "porque", "luz", "tipo", "fuego", "imagen", "tratar", "nosotros", "animal", "punto", "madre", "mundo", "cerca", "construir", "auto", "padre", "cualquier", "nuevo", "trabajo", "parte", "tomar", "conseguir", "lugar", "hecho", "vivir", "donde", "después", "atrás", "poco", "ronda", "hombre", "años", "vino", "buena", "me", "dar", "nuestro", "bajo", "nombre", "muy", "forma", "frase", "gran", "pensar", "ayudar", "línea", "caja", "causa", "mucho", "ciudad", "antes", "movimiento", "derecho", "niño", "viejo", "demasiado", "misma", "ella", "todo", "hay", "cuando", "hasta", "uso", "camino", "acerca", "muchos", "entonces", "escribir", "haría", "éstos", "largo", "cosa", "ver", "dos", "tiene", "buscar", "más", "día", "podía", "ir", "venir", "hizo", "número", "sonar", "no", "personas", "mi", "sobre", "saber", "agua", "llamada", "primero", "puede", "abajo", "lado", "estado", "ahora", "encontrar", "bien", "siempre", "mayor", "menor", "mientras", "quien", "ayer", "pasado", "medio", "nunca", "poder", "veces", "fiesta", "grupo", "cuenta", "noche", "gente", "cuerpo", "semana", "segundo", "varios", "libro", "persona", "fuera", "casa", "solo", "mujer", "sistema", "vida"],
+    }
+];
