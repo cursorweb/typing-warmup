@@ -35,7 +35,7 @@ body {
 }
 
 .char.pace-caret {
-    border-right: 2px solid blue;
+    border-right: 2px solid #2f2fff;
 }
 
 .typing-page>.user-input {

@@ -60,5 +60,5 @@ testsEl.append(...elsFromList(varData, i => {
 }));
 
 pacerEl.append(...elsFromList(pacers, i => {
-    currentTest = new PacerGenerator(i);
+    currentTest = new PacerGenerator(i, 150);
 }));

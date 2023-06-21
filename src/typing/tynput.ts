@@ -25,6 +25,12 @@ class TynputManager {
 
     listener: TynputListener;
 
+    /**
+     * Pace WPM is the wpm the user wants to go
+     * Pace Int will tick periodically (maybe account for drift?)
+     * Pace Index is where the pace caret is.
+     * All variables reset after every clear()
+     */
     paceWpm?: number;
     paceInt?: ReturnType<typeof setInterval>;
     pIdx?: number;
@@ -69,7 +75,9 @@ class TynputManager {
 
             if (this.cIdx == 0) {
                 this.testResult.begin();
-                this.paceCaret(150);
+                if (this.paceWpm) {
+                    this.initPaceCaret(this.paceWpm);
+                }
             }
 
             this.els[this.cIdx].classList.remove("curr");
@@ -139,18 +147,22 @@ class TynputManager {
         }
     }
 
-    paceCaret(wpm = 0) {
+    createPacer(paceWpm: number) {
+        this.paceWpm = paceWpm;
+    }
+
+    initPaceCaret(wpm = 0) {
         if (wpm == 0) {
             return;
         }
 
         this.pIdx = -1;
 
-        this.pacer();
-        this.paceInt = setInterval(this.pacer.bind(this), 60 * 1000 / (wpm * 5));
+        this.pacerTick();
+        this.paceInt = setInterval(this.pacerTick.bind(this), 60 * 1000 / (wpm * 5));
     }
 
-    pacer() {
+    pacerTick() {
         this.els[this.pIdx]?.classList.remove("pace-caret");
         this.pIdx++;
         if (this.pIdx >= this.els.length) {
