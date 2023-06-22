@@ -1,5 +1,5 @@
 import { ITest, tests } from "./data";
-import { pages, transition, resultsCont } from "../../pages";
+import { resultsCont } from "../../pages";
 import { TypeMode } from "../mode";
 
 export class TestGenerator extends TypeMode {
@@ -10,7 +10,6 @@ export class TestGenerator extends TypeMode {
 
         this.listener.onEnd(res => {
             resultsCont.append(this.createResultEl(res));
-            transition(pages.results);
         });
     }
 

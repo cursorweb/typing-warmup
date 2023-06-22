@@ -1,3 +1,4 @@
+import { pages, resultsCont, transition } from "../pages";
 import { TestResult } from "./test-result";
 
 /*
@@ -76,7 +77,7 @@ class TynputManager {
             if (this.cIdx == 0) {
                 this.testResult.begin();
                 if (this.paceWpm) {
-                    this.initPaceCaret(this.paceWpm);
+                    this.initPaceCaret();
                 }
             }
 
@@ -141,9 +142,10 @@ class TynputManager {
         this.testResult = null;
         this.testCont.textContent = "";
 
-        if (this.paceInt) {
+        if (this.paceWpm) {
             clearInterval(this.paceInt);
             this.paceInt = null;
+            this.paceWpm = null;
         }
     }
 
@@ -151,15 +153,11 @@ class TynputManager {
         this.paceWpm = paceWpm;
     }
 
-    initPaceCaret(wpm = 0) {
-        if (wpm == 0) {
-            return;
-        }
-
+    initPaceCaret() {
         this.pIdx = -1;
 
         this.pacerTick();
-        this.paceInt = setInterval(this.pacerTick.bind(this), 60 * 1000 / (wpm * 5));
+        this.paceInt = setInterval(this.pacerTick.bind(this), 60 * 1000 / (this.paceWpm * 5));
     }
 
     pacerTick() {
@@ -190,7 +188,13 @@ export class TynputListener {
      * When a test has been completed
      * @param endFn handler
      */
-    onEnd(endFn: (testResult: TestResult) => void) {
-        this.endFn = endFn;
+    onEnd(endFn: (testResult: TestResult) => void, trans = true) {
+        this.endFn = res => {
+            resultsCont.textContent = "";
+            endFn(res);
+            if (trans) {
+                transition(pages.results);
+            }
+        };
     }
 }

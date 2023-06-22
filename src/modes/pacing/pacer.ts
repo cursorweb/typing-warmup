@@ -14,8 +14,11 @@ export class PacerGenerator extends TypeMode {
 
         this.listener.onEnd(res => {
             this.startWpm += 10;
-            console.log(this.startWpm);
-            this.begin();
+            
+            const infoDiv = document.createElement("div");
+            infoDiv.textContent = "Next WPM: " + this.startWpm;
+
+            resultsCont.append(infoDiv, this.createResultEl(res));
         });
     }
 

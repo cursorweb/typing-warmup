@@ -25,11 +25,14 @@ export class WarmUpGenerator extends TypeMode {
 
                 resultsCont.append(...resultEls);
                 transition(pages.results);
+
+                this.warmupIndex = 0;
+                this.testResults = [];
                 return;
             }
 
             this.begin();
-        });
+        }, false);
     }
 
     begin() {
