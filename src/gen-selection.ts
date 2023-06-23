@@ -60,5 +60,9 @@ testsEl.append(...elsFromList(varData, i => {
 }));
 
 pacerEl.append(...elsFromList(pacers, i => {
-    currentTest = new PacerGenerator(i, 150);
+    currentTest = new PacerGenerator(i, {
+        startWpm: 150,
+        nextWpm: 5,
+        minAccuracy: 95
+    });
 }));
