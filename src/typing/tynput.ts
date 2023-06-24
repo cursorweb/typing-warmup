@@ -1,3 +1,4 @@
+import { pages, resultsCont, transition } from "../pages";
 import { TestResult } from "./test-result";
 
 /*
@@ -11,13 +12,30 @@ class TynputManager {
     inputEl: HTMLInputElement;
     testCont: HTMLDivElement;
     focusOverlay: HTMLDivElement;
+
     testTitle: HTMLDivElement;
+
     tynputFocused: boolean;
+
     cIdx: number;
+
     els: Element[];
-    testResult: TestResult;
     text: string;
+
+    testResult: TestResult;
+
     listener: TynputListener;
+
+    /**
+     * Pace WPM is the wpm the user wants to go
+     * Pace Int will tick periodically (maybe account for drift?)
+     * Pace Index is where the pace caret is.
+     * All variables reset after every clear()
+     */
+    paceWpm?: number;
+    paceInt?: ReturnType<typeof setInterval>;
+    pIdx?: number;
+
 
     constructor() {
         this.inputEl = document.querySelector(".user-input");
@@ -33,12 +51,12 @@ class TynputManager {
         this.focusOverlay.addEventListener("click", this.focusTynput.bind(this));
 
         this.inputEl.addEventListener("focus", () => {
-            this.focusOverlay.style.display = "none";
+            this.focusOverlay.classList.add("hide");
             this.tynputFocused = true;
         });
 
         this.inputEl.addEventListener("blur", () => {
-            this.focusOverlay.style.display = "flex";
+            this.focusOverlay.classList.remove("hide");
             this.tynputFocused = false;
         });
 
@@ -58,6 +76,9 @@ class TynputManager {
 
             if (this.cIdx == 0) {
                 this.testResult.begin();
+                if (this.paceWpm) {
+                    this.initPaceCaret();
+                }
             }
 
             this.els[this.cIdx].classList.remove("curr");
@@ -86,7 +107,7 @@ class TynputManager {
         if (!this.tynputFocused) {
             e?.preventDefault();
             this.inputEl.focus();
-            this.focusOverlay.style.display = "none";
+            this.focusOverlay.classList.add("hide");
         }
     }
 
@@ -120,6 +141,33 @@ class TynputManager {
         this.cIdx = 0;
         this.testResult = null;
         this.testCont.textContent = "";
+
+        if (this.paceWpm) {
+            clearInterval(this.paceInt);
+            this.paceInt = null;
+            this.paceWpm = null;
+        }
+    }
+
+    createPacer(paceWpm: number) {
+        this.paceWpm = paceWpm;
+    }
+
+    initPaceCaret() {
+        this.pIdx = -1;
+
+        this.pacerTick();
+        this.paceInt = setInterval(this.pacerTick.bind(this), 60 * 1000 / (this.paceWpm * 5));
+    }
+
+    pacerTick() {
+        this.els[this.pIdx]?.classList.remove("pace-caret");
+        this.pIdx++;
+        if (this.pIdx >= this.els.length) {
+            clearInterval(this.paceInt);
+            return;
+        }
+        this.els[this.pIdx].classList.add("pace-caret");
     }
 }
 
@@ -140,7 +188,13 @@ export class TynputListener {
      * When a test has been completed
      * @param endFn handler
      */
-    onEnd(endFn: (testResult: TestResult) => void) {
-        this.endFn = endFn;
+    onEnd(endFn: (testResult: TestResult) => void, trans = true) {
+        this.endFn = res => {
+            resultsCont.textContent = "";
+            endFn(res);
+            if (trans) {
+                transition(pages.results);
+            }
+        };
     }
 }

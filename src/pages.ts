@@ -3,13 +3,14 @@ export const resultsCont = document.querySelector(".wpmresults");
 
 export const pages = {
     results: document.querySelector(".wpmresults-page") as HTMLDivElement,
-    typing: document.querySelector(".typing-page") as HTMLDivElement
+    typing: document.querySelector(".typing-page") as HTMLDivElement,
+    select: document.querySelector(".warmup-select") as HTMLDivElement
 };
 
-let currPage: HTMLDivElement = pages.typing;
+let currPage: HTMLDivElement = pages.select;
 
 export function transition(page: HTMLDivElement) {
-    currPage.style.display = "none";
+    currPage.classList.add("hide");
     currPage = page;
-    currPage.style.display = "block";
+    currPage.classList.remove("hide");
 }

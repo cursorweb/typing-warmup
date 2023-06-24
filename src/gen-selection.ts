@@ -1,4 +1,6 @@
 import { TypeMode } from "./modes/mode";
+import { pacers } from "./modes/pacing/data";
+import { PacerGenerator } from "./modes/pacing/pacer";
 import { tests } from "./modes/tests/data";
 import { TestGenerator } from "./modes/tests/test";
 import { varData } from "./modes/tests/var-data";
@@ -10,7 +12,7 @@ import { tynput } from "./typing/tynput";
 
 const warmupsEl = document.querySelector(".warmup>.selection");
 const testsEl = document.querySelector(".tests>.selection");
-// const pacerEl = document.querySelector(".pacer>.selection");
+const pacerEl = document.querySelector(".pacer>.selection");
 
 export let currentTest: TypeMode = null;
 
@@ -55,4 +57,12 @@ testsEl.append(...elsFromList(tests, i => {
 
 testsEl.append(...elsFromList(varData, i => {
     currentTest = new VarTestGenerator(i);
+}));
+
+pacerEl.append(...elsFromList(pacers, i => {
+    currentTest = new PacerGenerator(i, {
+        startWpm: 150,
+        nextWpm: 5,
+        minAccuracy: 95
+    });
 }));

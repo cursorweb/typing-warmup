@@ -14,15 +14,12 @@ export abstract class TypeMode {
 
     abstract begin(): void;
 
-    /**
-     * Don't forget to make this null!
-     */
     end() {
         tynput.clear();
     }
 
-    genText(list: string[], space: boolean, amt = DEBUG_AMT) {
-        return randomk(list, amt, space);
+    genText(list: string[], noSpace: boolean, amt = DEBUG_AMT) {
+        return randomk(list, amt, noSpace);
     }
     
     createResultEl(result: TestResult) {

@@ -1,4 +1,4 @@
-import { pages, transition, resultsCont } from "../../pages";
+import { resultsCont } from "../../pages";
 import { DEBUG_AMT, TypeMode } from "../mode";
 import { varData, IVarTest } from "./var-data";
 
@@ -10,7 +10,6 @@ export class VarTestGenerator extends TypeMode {
 
         this.listener.onEnd(res => {
             resultsCont.append(this.createResultEl(res));
-            transition(pages.results);
         });
     }
 

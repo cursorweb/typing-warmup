@@ -23,33 +23,37 @@
             <div class="title">Tests</div>
             <div class="selection"></div>
         </div>
-        <!-- <div class="pacer">
+        <div class="select-group pacer">
             <div class="title">Pacer</div>
             <div class="selection"></div>
-        </div> -->
+        </div>
     </div>
 
-    <div class="typing-page">
-        <h1 class="test-title">Loading...</h1>
+    <div class="typing-page hide">
+        <button class="shortcut-exit">Exit (Esc)</button>
+        
+        <h1 class="test-title"></h1>
         <div class="keyboardcont">
             <div class="test-cont"></div>
-            <div class="overlay">
+            <div class="overlay hide">
                 Type or Click to focus
             </div>
         </div>
         <input class="user-input" maxlength="1" autocomplete="off" spellcheck="false" autocapitalize="off"
             autocorrect="off" data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false" />
+
+        <button class="shortcut-reset">Reset (Tab)</button>
     </div>
 
-    <div class="wpmresults-page">
+    <div class="wpmresults-page hide">
         <h1>Results</h1>
         <div class="wpmresults"></div>
     </div>
 
-    <div class="type-nav">
-        <button class="shortcut-exit">Exit (Esc)</button>
-        <button class="shortcut-reset">Reset (Tab)</button>
-    </div>
+    <!-- <div class="modal pacer-config">
+        <h1>Pacer Config</h1>
+        <div><label>Pace WPM: <input /></label></div>
+    </div> -->
 
     <script src="dist/main.js"></script>
 </body>
