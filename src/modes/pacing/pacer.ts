@@ -20,6 +20,12 @@ export class PacerGenerator extends TypeMode {
         this.options = options;
         this.startWpm = options.startWpm;
 
+        if (options.minAccuracy == 100) {
+            tynput.resetOnWrong = () => {
+                this.begin();
+            };
+        }
+
         this.listener.onEnd(res => {
             const wpm = res.calcWpm();
             const acc = res.calcAcc();
@@ -38,5 +44,11 @@ export class PacerGenerator extends TypeMode {
         const text = this.genText(this.pacer.list, false);
         this.listener.newTest(this.pacer.title, text);
         tynput.createPacer(this.startWpm);
+    }
+
+    override end(): void {
+        super.end();
+        tynput.paceWpm = null;
+        tynput.resetOnWrong = null;
     }
 }

@@ -36,6 +36,8 @@ class TynputManager {
     paceInt?: ReturnType<typeof setInterval>;
     pIdx?: number;
 
+    resetOnWrong?: () => void = null;
+
 
     constructor() {
         this.inputEl = document.querySelector(".user-input");
@@ -87,6 +89,10 @@ class TynputManager {
                 this.els[this.cIdx].classList.add("correct");
                 this.testResult.correct++;
             } else {
+                if (this.resetOnWrong) {
+                    this.resetOnWrong();
+                    return;
+                }
                 this.els[this.cIdx].classList.add("wrong");
                 this.testResult.wrong++;
             }
@@ -142,10 +148,9 @@ class TynputManager {
         this.testResult = null;
         this.testCont.textContent = "";
 
-        if (this.paceWpm) {
+        if (this.paceInt) {
             clearInterval(this.paceInt);
             this.paceInt = null;
-            this.paceWpm = null;
         }
     }
 
