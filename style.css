@@ -1,8 +1,12 @@
 body {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     font-family: 'Roboto Mono', monospace;
+}
+
+h1 {
+    margin: 0;
 }
 
 .char {
@@ -36,6 +40,20 @@ body {
 
 .char.pace-caret {
     border-right: 2px solid #2f2fff;
+}
+
+.typing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.typing-page>.shortcut-exit {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .typing-page>.user-input {
@@ -72,7 +90,6 @@ body {
 }
 
 .wpmresults-page {
-    display: none;
     text-align: center;
 }
 
@@ -110,4 +127,8 @@ body {
 
 .select-mode>.title {
     font-weight: bolder;
+}
+
+.hide {
+    display: none;
 }

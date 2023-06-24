@@ -51,12 +51,12 @@ class TynputManager {
         this.focusOverlay.addEventListener("click", this.focusTynput.bind(this));
 
         this.inputEl.addEventListener("focus", () => {
-            this.focusOverlay.style.display = "none";
+            this.focusOverlay.classList.add("hide");
             this.tynputFocused = true;
         });
 
         this.inputEl.addEventListener("blur", () => {
-            this.focusOverlay.style.display = "flex";
+            this.focusOverlay.classList.remove("hide");
             this.tynputFocused = false;
         });
 
@@ -107,7 +107,7 @@ class TynputManager {
         if (!this.tynputFocused) {
             e?.preventDefault();
             this.inputEl.focus();
-            this.focusOverlay.style.display = "none";
+            this.focusOverlay.classList.add("hide");
         }
     }
 

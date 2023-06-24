@@ -29,6 +29,11 @@ Random ideas that have come to mind
 Look ahead (current word is hidden)
 Blind (only see current and next 2 words)
 Instant death -- as soon as you type a wrong character the whole test restarts
+Chinese?? Obviously accuracy doesn't mean anything...
+
+* split css into multiple files
+* load the test data as maybe json?
+* some how add good component system
 
 ## Organization
 * Method to favorite

@@ -16,12 +16,22 @@ resetBtn.addEventListener("click", () => {
 });
 
 exitBtn.addEventListener("click", () => {
+    if (!currentTest) {
+        return;
+    }
 
+    currentTest.end();
+    transition(pages.select);
 });
 
 document.body.addEventListener("keydown", e => {
     if (e.key == "Tab") {
         e.preventDefault();
         resetBtn.click();
+    }
+    
+    if (e.key == "Escape") {
+        e.preventDefault();
+        exitBtn.click();
     }
 });
