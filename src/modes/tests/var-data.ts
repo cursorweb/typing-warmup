@@ -43,4 +43,19 @@ export const varData: IVarTest[] = [{
         }
         return out;
     }
+}, {
+    title: "Special Character Practice",
+    desc: "Type the lower case version, and then the upper case, or the other way around!",
+    gen(amt) {
+        let out = "";
+        for (let i = 0; i < amt / 2; i++) {
+            const index = Math.floor(Math.random() * list.lowerSpec.length);
+            if (Math.random() < 0.5) {
+                out += list.lowerSpec[index] + list.upperSpec[index];
+            } else {
+                out += list.upperSpec[index] + list.lowerSpec[index];
+            }
+        }
+        return out;
+    }
 }];
