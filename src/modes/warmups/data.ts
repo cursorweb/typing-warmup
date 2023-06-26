@@ -11,26 +11,21 @@ export interface IWarmup extends IData {
 export const warmups: IWarmup[] = [
     {
         "title": "English",
-        "desc": "Basic English Warmup.",
+        "desc": "Basic English Warmup",
         "tests": [
-            // common letter pairs
             {
                 "title": "Two-Letter Pairs",
                 "list": ["th", "ar", "he", "te", "an", "se", "in", "me", "er", "sa", "nd", "ne", "re", "wa", "ed", "ve", "es", "le", "ou", "no", "to", "ta", "ha", "al", "en", "de", "ea", "ot", "st", "so", "nt", "dt", "on", "ll", "at", "tt", "hi", "el", "as", "ro", "it", "ad", "ng", "di", "is", "ew", "or", "ra", "et", "ri", "of", "sh", "ti"],
                 "noSpace": false
             },
-
-            // common two letter words
             {
                 "title": "Two-Letter Words",
-                "list": ["of", "to", "in", "it", "is", "be", "as", "at", "so", "we", "he", "by", "or", "on", "do", "if", "me", "my", "up", "an", "go", "no", "us", "am", "hi", "ex", "ok"],
+                "list": ["of", "to", "in", "it", "is", "be", "as", "at", "so", "we", "he", "by", "or", "on", "do", "if", "me", "my", "up", "an", "go", "no", "us", "am"],
                 "noSpace": false
             },
-
-            // common three letter words
             {
                 "title": "Three-Letter Words",
-                "list": ["and", "fix", "own", "are", "fly", "odd", "ape", "fry", "our", "ace", "for", "pet", "act", "got", "pat", "ask", "get", "peg", "arm", "god", "paw", "age", "gel", "pup", "ago", "gas", "pit", "air", "hat", "put", "ate", "hit", "pot", "all", "has", "pop", "but", "had", "pin", "bye", "how", "rat", "bad", "her", "rag", "big", "his", "rub", "bed", "hen", "row", "bat", "ink", "rug", "boy", "ice", "run", "bus", "ill", "rap", "bag", "jab", "ram", "box", "jug", "sow", "bit", "jet", "see", "bee", "jam", "saw", "buy", "jar", "set", "bun", "job", "sit", "cub", "jog", "sir", "cat", "kit", "sat", "car", "key", "sob", "cut", "lot", "tap", "cow", "lit", "tip", "cry", "let", "top", "cab", "lay", "tug", "can", "mat", "tow", "dad", "man", "toe", "dab", "mad", "tan", "dam", "mug", "ten", "did", "mix", "two", "dug", "map", "use", "den", "mum", "van", "dot", "mud", "vet", "dip", "mom", "was", "day", "may", "wet", "ear", "met", "win", "eye", "net", "won", "eat", "new", "wig", "end", "nap", "war", "elf", "now", "why", "egg", "nod", "who", "far", "way", "fat", "not", "wow", "few", "nut", "you", "fan", "oar", "yes", "fun", "one", "yak", "fit", "out", "yet", "fin", "owl", "zip", "fox", "old", "zap", "will", "she", "any", "the"],
+                "list": ["the", "and", "for", "are", "but", "not", "you", "all", "any", "can", "had", "her", "was", "one", "our", "out", "day", "get", "has", "him", "his", "how", "man", "new", "now", "old", "see", "two", "way", "who", "boy", "did", "its", "let", "put", "say", "she", "too", "use"],
                 "noSpace": false
             },
 
@@ -53,4 +48,30 @@ export const warmups: IWarmup[] = [
             }
         ]
     },
+    {
+        "title": "Spanish",
+        "desc": "Spanish Monkeytype Warmup",
+        "tests": [
+            {
+                "title": "Two-letter pairs",
+                "list": ["er", "en", "ar", "ra", "ue", "on", "es", "de", "ie", "re", "os", "ma", "no", "ca", "nt", "do", "tr", "to", "po", "ad", "so", "un", "te", "st", "ro", "ta", "ir", "co", "qu", "an", "ho", "as", "al", "la", "da", "or", "br", "ce", "ch", "nd", "vi", "sa"],
+                "noSpace": false
+            },
+            {
+                "title": "Three-letter pairs",
+                "list": ["ien", "ent", "con", "cho", "que", "son", "est", "nto", "uer", "bre", "tra", "ado", "era", "ste", "nte", "per", "ero", "gun", "nos", "tro", "ran", "ace", "cer", "tie", "unt", "ier", "egu", "omb", "mbr", "ndo", "baj", "ajo", "ema", "sta", "ona"],
+                "noSpace": false
+            },
+            {
+                "title": "Alfabeto",
+                "list": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ", "z", "x", "c", "v", "b", "n", "m", "á", "é", "í", "ó", "ú", "ü"],
+                "noSpace": true
+            },
+            {
+                "title": "Special Characters",
+                "list": ["¡", "¿", "?", "!", "\"", "$", "%", "&", "/", "(", ")", "=", "*", ":", ";", "-", "_"],
+                "noSpace": true
+            }
+        ]
+    }
 ];
