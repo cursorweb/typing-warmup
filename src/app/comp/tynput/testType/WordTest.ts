@@ -1,5 +1,5 @@
-import { Test } from "./Test";
+// import { Test } from "./Test";
 
-export class WordTest extends Test {
+// export class WordTest extends Test {
 
-}
+// }
