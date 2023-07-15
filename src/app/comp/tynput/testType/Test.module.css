@@ -1,0 +1,28 @@
+.char {
+    display: inline-block;
+
+    margin: 0;
+
+    border-right: 2px solid transparent;
+    border-bottom: 1px solid transparent;
+
+    font-family: 'Roboto Mono', monospace;
+}
+
+.wrong {
+    background: red;
+    color: white;
+}
+
+.correct {
+    color: green;
+}
+
+.curr {
+    border-right: 2px solid black;
+    background: #e6e6e6;
+}
+
+.space {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
