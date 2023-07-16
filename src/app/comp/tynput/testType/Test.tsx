@@ -1,40 +1,18 @@
 import styles from "./Test.module.css";
 import React from "react";
 
-export class WPMResult {
-    chars: number;
-    correct: number;
-    wrong: number;
-    start!: Date;
-    endTime!: Date;
+export interface CharTestResult {
+    cpm: number;
+    acc: number;
+    wrong: string[];
+}
 
-    constructor() {
-        this.chars = 0;
-        this.correct = 0;
-        this.wrong = 0;
-    }
-
-    begin() {
-        this.start = new Date();
-    }
-
-    end() {
-        this.endTime = new Date();
-    }
-
-    calcWpm() {
-        const words = this.chars / 5;
-        const errors = this.chars - this.correct;
-
-        const time = (this.endTime.getTime() - this.start.getTime()) / (1000 * 60);
-        return Math.max(0, (words - errors / 5) / time);
-    }
-
-    calcAcc() {
-        const words = this.chars;
-        const errors = this.wrong;
-        return (1 - errors / words) * 100;
-    }
+export interface WordTestResult {
+    wpm: number;
+    acc: number;
+    wrong: string[];
+    wpms: number[];
+    slow: string[];
 }
 
 export function Char({ char, state }: { char: string, state: "correct" | "wrong" | "" | "curr" }) {
@@ -45,6 +23,20 @@ export function Char({ char, state }: { char: string, state: "correct" | "wrong"
 
 export function Word({ children }: { children: React.JSX.Element[] }) {
     return (
-        <span>{children}</span>
+        <div className={styles.word}>{children}</div>
     );
+}
+
+export function calcCPM(chars: number, wrong: number, elapsed: number) {
+    const time = elapsed / (1000 * 60);
+    return Math.max(0, (chars - wrong) / time);
+}
+
+export function calcWPM(chars: number, wrong: number, elapsed: number) {
+    const time = elapsed / (1000 * 60);
+    return Math.max(0, ((chars - wrong) / 5) / time);
+}
+
+export function calcAcc(chars: number, wrong: number) {
+    return (1 - wrong / chars) * 100;
 }

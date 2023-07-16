@@ -1,25 +1,50 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Tynput } from "../Tynput";
-import { Char } from "./Test";
+import { Char, CharTestResult, calcAcc, calcCPM } from "./Test";
 
-export function CharTest({ chars }: { chars: string[] }) {
+interface CharTestProps {
+    chars: string[];
+    onDone: (result: CharTestResult) => void;
+}
+
+export function CharTest({ chars, onDone }: CharTestProps) {
     const [idx, setIdx] = useState(0);
-    const [wrong, setWrong] = useState<Record<string, boolean>>({});
+    const [wrong, setWrong] = useState<Set<number>>(new Set());
+    const timerRef = useRef<number>();
 
     function onChar(char: string) {
         const actual = chars[idx];
         if (char != actual) {
-            setWrong(Object.assign({ [idx]: true }, wrong));
+            setWrong(wrong.add(idx));
         }
 
-        // end the test LMAO
-        setIdx(idx + 1);
+        if (idx == 0) {
+            timerRef.current = Date.now();
+            console.log('set')
+        }
+
+        if (idx < chars.length - 1) {
+            setIdx(idx + 1);
+        } else {
+            const elapsed = Date.now() - timerRef.current!;
+            const len = chars.length;
+            const wrongChars = wrong.size;
+            
+            onDone({
+                cpm: calcCPM(len, wrongChars, elapsed),
+                acc: calcAcc(len, wrongChars),
+                wrong: [...wrong].map(i => chars[i])
+            });
+        }
     }
 
     function onDel() {
         if (idx > 0) {
-            if (wrong[idx - 1]) {
-                delete wrong[idx - 1];
+            if (wrong.has(idx - 1)) {
+                setWrong(w => {
+                    w.delete(idx - 1);
+                    return w;
+                });
             }
 
             setIdx(idx - 1);
@@ -30,12 +55,17 @@ export function CharTest({ chars }: { chars: string[] }) {
         <>
             {chars.map((c, i) => {
                 if (i < idx) {
-                    return <Char char={c} state={wrong[i] ? "wrong" : "correct"} key={i} />;
+                    return <Char char={c} state={wrong.has(i) ? "wrong" : "correct"} key={i} />;
                 } else {
                     return <Char char={c} state={idx == i ? "curr" : ""} key={i} />;
                 }
             })}
-            <Tynput onChar={onChar} onDel={onDel} hasWords={false} />
+
+            <Tynput
+                onChar={onChar}
+                onDel={onDel}
+                hasWords={false}
+            />
         </>
     );
 }
