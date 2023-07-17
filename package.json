@@ -2,6 +2,7 @@
   "name": "typing-warmup",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://cursorweb.github.io/typing-warmup/",
   "dependencies": {
     "@types/node": "^16.18.38",
     "@types/react": "^18.2.15",

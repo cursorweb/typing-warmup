@@ -29,7 +29,7 @@ export function CharTest({ chars, onDone }: CharTestProps) {
             const elapsed = Date.now() - timerRef.current!;
             const len = chars.length;
             const wrongChars = wrong.size;
-            
+
             onDone({
                 cpm: calcCPM(len, wrongChars, elapsed),
                 acc: calcAcc(len, wrongChars),
@@ -53,13 +53,15 @@ export function CharTest({ chars, onDone }: CharTestProps) {
 
     return (
         <div style={{ position: "relative", padding: "10px" }}>
-            {chars.map((c, i) => {
-                if (i < idx) {
-                    return <Char char={c} state={wrong.has(i) ? "wrong" : "correct"} key={i} />;
-                } else {
-                    return <Char char={c} state={idx == i ? "curr" : ""} key={i} />;
-                }
-            })}
+            <div>
+                {chars.map((c, i) => {
+                    if (i < idx) {
+                        return <Char char={c} state={wrong.has(i) ? "wrong" : "correct"} key={i} />;
+                    } else {
+                        return <Char char={c} state={idx == i ? "curr" : ""} key={i} />;
+                    }
+                })}
+            </div>
 
             <Tynput
                 onChar={onChar}
