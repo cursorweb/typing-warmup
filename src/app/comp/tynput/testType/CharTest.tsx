@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Tynput } from "../Tynput";
-import { Char, CharTestResult, calcAcc, calcCPM } from "./Test";
+import { Char, CharTestResult, calcAcc, calcCPM, useTimer } from "./Test";
 
 interface CharTestProps {
     chars: string[];
@@ -10,7 +10,7 @@ interface CharTestProps {
 export function CharTest({ chars, onDone }: CharTestProps) {
     const [idx, setIdx] = useState(0);
     const [wrong, setWrong] = useState<Set<number>>(new Set());
-    const timerRef = useRef<number>();
+    const [beginTimer, endTimer] = useTimer();
 
     function onChar(char: string) {
         const actual = chars[idx];
@@ -19,14 +19,13 @@ export function CharTest({ chars, onDone }: CharTestProps) {
         }
 
         if (idx == 0) {
-            timerRef.current = Date.now();
-            console.log('set')
+            beginTimer();
         }
 
         if (idx < chars.length - 1) {
             setIdx(idx + 1);
         } else {
-            const elapsed = Date.now() - timerRef.current!;
+            const elapsed = endTimer();
             const len = chars.length;
             const wrongChars = wrong.size;
 
@@ -52,7 +51,7 @@ export function CharTest({ chars, onDone }: CharTestProps) {
     }
 
     return (
-        <div style={{ position: "relative", padding: "10px" }}>
+        <>
             <div>
                 {chars.map((c, i) => {
                     if (i < idx) {
@@ -68,6 +67,6 @@ export function CharTest({ chars, onDone }: CharTestProps) {
                 onDel={onDel}
                 hasWords={false}
             />
-        </div>
+        </>
     );
 }
