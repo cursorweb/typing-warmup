@@ -1,5 +1,5 @@
 import styles from "./Tynput.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface TynputProps {
     onChar: (c: string) => void;
@@ -12,7 +12,7 @@ interface TynputProps {
 }
 
 export function Tynput({ onChar, onDel, hasWords }: TynputProps) {
-    const isFocusedRef = useRef(false);
+    const [isFocused, setIsFocused] = useState(true);
     const inputValRef = useRef("");
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -20,11 +20,13 @@ export function Tynput({ onChar, onDel, hasWords }: TynputProps) {
         inputRef.current?.focus();
 
         const listener = (e: KeyboardEvent) => {
-            if (!isFocusedRef.current) {
-                e.preventDefault();
-                inputRef.current?.focus();
-                isFocusedRef.current = true;
+            if ((e.target as HTMLElement).tagName.toUpperCase() == "INPUT") {
+                return;
             }
+
+            e.preventDefault();
+            inputRef.current?.focus();
+            setIsFocused(true);
         };
 
         document.body.addEventListener("keydown", listener);
@@ -32,13 +34,32 @@ export function Tynput({ onChar, onDel, hasWords }: TynputProps) {
         return () => document.body.removeEventListener("keydown", listener);
     }, []);
 
+    function onBlur() {
+        setIsFocused(false);
+    }
+
+    function onFocus() {
+        setIsFocused(true);
+    }
+
     return (
         <>
+            <div
+                style={{
+                    display: isFocused ? "none" : undefined
+                }}
+                hidden={isFocused}
+                className={styles.overlay}
+                onClick={() => inputRef.current?.focus()}
+            >
+                Type or Click to focus
+            </div>
+
             <input
                 className={styles.tynput}
                 ref={inputRef}
-                onBlur={() => isFocusedRef.current = false}
-                onFocus={() => isFocusedRef.current = true}
+                onBlur={onBlur}
+                onFocus={onFocus}
                 onInput={e => {
                     const target = e.target as HTMLInputElement;
                     onChar(target.value);
@@ -53,6 +74,7 @@ export function Tynput({ onChar, onDel, hasWords }: TynputProps) {
                         if (!hasWords) {
                             onDel(1);
                         } else {
+                            console.log(inputValRef.current);
                             // todo i guess LMAO
                         }
                     }

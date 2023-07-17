@@ -1,10 +1,14 @@
+import { useState } from "react";
 import "./App.css";
 import { CharTest } from "./comp/tynput/testType/CharTest";
 
 function App() {
     return (
         <div>
-            <CharTest chars={"thequickbrownfoxjumpsoverthelazydog".split("")} onDone={console.log} />
+            {
+                // ... whatever var
+                <CharTest chars={"thequickbrownfoxjumpsoverthelazydog".split("")} onDone={console.log} />
+            }
         </div>
     );
 }

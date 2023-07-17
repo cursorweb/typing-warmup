@@ -52,7 +52,7 @@ export function CharTest({ chars, onDone }: CharTestProps) {
     }
 
     return (
-        <>
+        <div style={{ position: "relative", padding: "10px" }}>
             {chars.map((c, i) => {
                 if (i < idx) {
                     return <Char char={c} state={wrong.has(i) ? "wrong" : "correct"} key={i} />;
@@ -66,6 +66,6 @@ export function CharTest({ chars, onDone }: CharTestProps) {
                 onDel={onDel}
                 hasWords={false}
             />
-        </>
+        </div>
     );
 }
