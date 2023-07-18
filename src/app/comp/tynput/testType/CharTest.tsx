@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Tynput } from "../Tynput";
-import { Char, CharTestResult, calcAcc, calcCPM, useTimer } from "./Test";
+import { Char, CharTestResult, calcAcc, calcCPM, useTest } from "./Test";
 
 interface CharTestProps {
     chars: string[];
@@ -8,9 +7,11 @@ interface CharTestProps {
 }
 
 export function CharTest({ chars, onDone }: CharTestProps) {
-    const [idx, setIdx] = useState(0);
-    const [wrong, setWrong] = useState<Set<number>>(new Set());
-    const [beginTimer, endTimer] = useTimer();
+    const {
+        idx, setIdx,
+        wrong, setWrong,
+        beginTimer, endTimer
+    } = useTest();
 
     function onChar(char: string) {
         const actual = chars[idx];
@@ -65,7 +66,6 @@ export function CharTest({ chars, onDone }: CharTestProps) {
             <Tynput
                 onChar={onChar}
                 onDel={onDel}
-                hasWords={false}
             />
         </>
     );

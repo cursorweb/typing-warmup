@@ -1,5 +1,5 @@
 import styles from "./Test.module.css";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export interface CharTestResult {
     cpm: number;
@@ -35,20 +35,14 @@ export function calcAcc(chars: number, wrong: number) {
     return (1 - wrong / chars) * 100;
 }
 
-export function useTimer() {
-    const timerRef = useRef<number>();
-    return [
-        () => timerRef.current = Date.now(),
-        () => Date.now() - timerRef.current!,
-    ];
-}
-
 export function useTest() {
     const [idx, setIdx] = useState(0);
     const [wrong, setWrong] = useState<Set<number>>(new Set());
-    const [beginTimer, endTimer] = useTimer();
+    const timerRef = useRef<number>();
 
     return {
-        idx, setIdx, wrong, setWrong, beginTimer, endTimer
+        idx, setIdx, wrong, setWrong,
+        beginTimer: () => timerRef.current = Date.now(),
+        endTimer: () => Date.now() - timerRef.current!
     }
 }

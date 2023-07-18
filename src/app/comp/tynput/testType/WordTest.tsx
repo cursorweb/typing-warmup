@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Char, WordTestResult, calcAcc, calcWPM, useTest, useTimer } from "./Test";
+import { Char, WordTestResult, useTest } from "./Test";
 import { Tynput } from "../Tynput";
 
 interface WordTestProps {
@@ -45,25 +44,28 @@ export function WordTest({ words: { wordMap, chars }, onDone }: WordTestProps) {
         setIdx(idx + 1);
     }
 
-    function onDel(count: number) {
+    function onDel(ctrl: boolean) {
         if (idx > 0) {
-            // don't allow deleting of more words
-            // because we don't use a word-based system
-            // we can't actually delete beyond the current word
-            if (count == 1 && chars[idx - 1] == " ") return;
+            if (ctrl) {
+                let end = idx - 1;
+                for (; chars[end] != " " && end >= 0; end--) {
+                    if (wrong.has(end)) {
+                        wrong.delete(end);
+                    }
+                }
 
-            const endIdx = idx - count;
-
-            for (let i = idx - 1; i >= endIdx; i--) {
-                if (wrong.has(i)) {
+                setWrong(wrong);
+                setIdx(end + 1);
+            } else {
+                if (wrong.has(idx - 1)) {
                     setWrong(w => {
-                        w.delete(i);
+                        w.delete(idx - 1);
                         return w;
                     });
                 }
-            }
 
-            setIdx(idx - count);
+                setIdx(idx - 1);
+            }
         }
     }
 
@@ -79,7 +81,6 @@ export function WordTest({ words: { wordMap, chars }, onDone }: WordTestProps) {
                 })}
             </div>
             <Tynput
-                hasWords={true}
                 onChar={onChar}
                 onDel={onDel}
             />
