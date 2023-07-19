@@ -69,6 +69,10 @@ export function Tynput({ onChar, onDel, hasWords = false }: TynputProps) {
                 onDel(false);
             }
         }
+
+        if (hasWords && e.key == " " && (e.target as HTMLInputElement).value == "") {
+            e.preventDefault();
+        }
     }
 
     return (

@@ -1,86 +1,53 @@
-import { Char, WordTestResult, useTestProps } from "./Test";
+import { Char, Word, useTestProps, useTimer } from "./Test";
 import { Tynput } from "../Tynput";
+import React, { useState } from "react";
+
+interface WordTestResult {
+    wpm: number;
+    acc: number;
+    wrong: string[];
+    // wpms: number[];
+    // slow: string[];
+}
 
 interface WordTestProps {
-    words: {
-        wordMap: string[][];
-        chars: string[];
-    }
+    words: string[][];
     onDone: (result: WordTestResult) => void;
 }
 
-export function WordTest({ words: { wordMap, chars }, onDone }: WordTestProps) {
-    const {
-        idx, setIdx,
-        wrong, setWrong,
-        beginTimer, endTimer
-    } = useTestProps();
+export function WordTest({ words, onDone }: WordTestProps) {
+    const [wIdx, setwIdx] = useState(0);
+    const [cIdx, setcIdx] = useState(0);
+
+    const { beginTimer, endTimer } = useTimer();
 
     function onChar(char: string) {
-        const actual = chars[idx];
-
-        if (char != actual) {
-            setWrong(wrong.add(idx));
-        }
-
-        if (idx == 0) {
-            beginTimer();
-        }
-
-        if (idx < chars.length - 1) {
-            setIdx(idx + 1);
+        if (char == " ") {
+            setwIdx(wIdx + 1);
+            setcIdx(0);
         } else {
-            const elapsed = endTimer();
-            const len = chars.length;
-            const wrongChars = wrong.size;
-
-            // onDone({
-            //     wpm: calcWPM(len, wrongChars, elapsed),
-            //     acc: calcAcc(len, wrongChars),
-            //     wrong: [...wrong]
-            // });
+            setcIdx(cIdx + 1);
         }
     }
 
-    function onDel(ctrl: boolean) {
-        if (idx > 0) {
-            if (ctrl) {
-                let end = idx - 1;
-                for (; chars[end] != " " && end >= 0; end--) {
-                    if (wrong.has(end)) {
-                        wrong.delete(end);
-                    }
-                }
+    function onDel() {
 
-                setWrong(wrong);
-                setIdx(end + 1);
-            } else {
-                if (wrong.has(idx - 1)) {
-                    setWrong(w => {
-                        w.delete(idx - 1);
-                        return w;
-                    });
-                }
-
-                setIdx(idx - 1);
-            }
-        }
     }
 
     return (
         <>
             <div>
-                {chars.map((c, i) => {
-                    if (i < idx) {
-                        return <Char char={c} state={wrong.has(i) ? "wrong" : "correct"} key={i} />;
-                    } else {
-                        return <Char char={c} state={idx == i ? "curr" : ""} key={i} />;
-                    }
-                })}
+                {words.map((word, wi) =>
+                    <Word key={wi} space={wi < words.length - 1} onSpace={cIdx >= word.length && wIdx == wi}>
+                        {word.map((c, ci) => <Char char={c} state={wi == wIdx && ci == cIdx ? "curr" : ""} key={ci} />)}
+                    </Word>
+                )}
             </div>
+
             <Tynput
                 onChar={onChar}
                 onDel={onDel}
+                hasWords
             />
         </>
     );

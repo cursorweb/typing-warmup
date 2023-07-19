@@ -7,8 +7,8 @@ function App() {
         <div style={{ position: "relative", padding: "10px" }}>
             {
                 // ... whatever var
-                <CharTest chars={"thequickbrownfoxjumpsoverthelazydog".split("")} onDone={console.log} />
-                // <WordTest words={wordMapToChars("the quick brown fox jumps over the lazy dog".split(" ").map(k => k.split("")))} onDone={console.log} />
+                // <CharTest chars={"thequickbrownfoxjumpsoverthelazydog".split("")} onDone={console.log} />
+                <WordTest words={"the quick brown fox jumps over the lazy dog".split(" ").map(k => k.split(""))} onDone={console.log} />
             }
         </div>
     );

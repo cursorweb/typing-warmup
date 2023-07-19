@@ -1,5 +1,11 @@
 import { Tynput } from "../Tynput";
-import { Char, CharTestResult, calcAcc, calcCPM, useTest, useTestProps } from "./Test";
+import { Char, calcAcc, calcCPM, useTest, useTestProps } from "./Test";
+
+interface CharTestResult {
+    cpm: number;
+    acc: number;
+    wrong: string[];
+}
 
 interface CharTestProps {
     chars: string[];
@@ -11,7 +17,7 @@ export function CharTest({ chars, onDone }: CharTestProps) {
         onDone({
             cpm: calcCPM(len, wrongChars, elapsed),
             acc: calcAcc(len, wrongChars),
-            wrong: [...wrong].map(i => chars[i])
+            wrong: Object.keys(wrong).map(i => chars[Number(i)])
         });
     });
 
@@ -20,7 +26,7 @@ export function CharTest({ chars, onDone }: CharTestProps) {
             <div>
                 {chars.map((c, i) => {
                     if (i < idx) {
-                        return <Char char={c} state={wrong.has(i) ? "wrong" : "correct"} key={i} />;
+                        return <Char char={c} state={wrong[i] ? "wrong" : "correct"} key={i} />;
                     } else {
                         return <Char char={c} state={idx == i ? "curr" : ""} key={i} />;
                     }
