@@ -1,5 +1,5 @@
 import { Tynput } from "../Tynput";
-import { Char, CharTestResult, calcAcc, calcCPM, useTest } from "./Test";
+import { Char, CharTestResult, calcAcc, calcCPM, useTest, useTestProps } from "./Test";
 
 interface CharTestProps {
     chars: string[];
@@ -7,49 +7,13 @@ interface CharTestProps {
 }
 
 export function CharTest({ chars, onDone }: CharTestProps) {
-    const {
-        idx, setIdx,
-        wrong, setWrong,
-        beginTimer, endTimer
-    } = useTest();
-
-    function onChar(char: string) {
-        const actual = chars[idx];
-        if (char != actual) {
-            setWrong(wrong.add(idx));
-        }
-
-        if (idx == 0) {
-            beginTimer();
-        }
-
-        if (idx < chars.length - 1) {
-            setIdx(idx + 1);
-        } else {
-            const elapsed = endTimer();
-            const len = chars.length;
-            const wrongChars = wrong.size;
-
-            onDone({
-                cpm: calcCPM(len, wrongChars, elapsed),
-                acc: calcAcc(len, wrongChars),
-                wrong: [...wrong].map(i => chars[i])
-            });
-        }
-    }
-
-    function onDel() {
-        if (idx > 0) {
-            if (wrong.has(idx - 1)) {
-                setWrong(w => {
-                    w.delete(idx - 1);
-                    return w;
-                });
-            }
-
-            setIdx(idx - 1);
-        }
-    }
+    const { onChar, onDel, wrong, idx } = useTest(chars, ({ len, wrongChars, elapsed }) => {
+        onDone({
+            cpm: calcCPM(len, wrongChars, elapsed),
+            acc: calcAcc(len, wrongChars),
+            wrong: [...wrong].map(i => chars[i])
+        });
+    });
 
     return (
         <>

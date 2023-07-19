@@ -1,4 +1,4 @@
-import { Char, WordTestResult, useTest } from "./Test";
+import { Char, WordTestResult, useTestProps } from "./Test";
 import { Tynput } from "../Tynput";
 
 interface WordTestProps {
@@ -14,7 +14,7 @@ export function WordTest({ words: { wordMap, chars }, onDone }: WordTestProps) {
         idx, setIdx,
         wrong, setWrong,
         beginTimer, endTimer
-    } = useTest();
+    } = useTestProps();
 
     function onChar(char: string) {
         const actual = chars[idx];
@@ -40,8 +40,6 @@ export function WordTest({ words: { wordMap, chars }, onDone }: WordTestProps) {
             //     wrong: [...wrong]
             // });
         }
-
-        setIdx(idx + 1);
     }
 
     function onDel(ctrl: boolean) {
