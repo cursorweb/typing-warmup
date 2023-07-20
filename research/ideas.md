@@ -48,11 +48,16 @@ Guided Warmup: A selection of warmups to do.
     * do the words, then repeat the incorrect words before moving on
     * other kinds of infinite tests
 
-Fun: Common Code snippets!
+Fun: Common Code snippets! (Never mind maybe...)
 * C# boilerplate
 * C++ boilerplate
 * Rust boilerplate
 * HTML boilerplate (ow)
+
+## Repetition
+- Repeat slow & missed (you can configure this in settings)
+- Repeat entirely but you race against yourself
+- Repeat entirely but you race against an optimal wpm
 
 ## Organization
 * Method to favorite

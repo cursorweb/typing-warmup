@@ -1,6 +1,6 @@
 import { Char, Word, useTestProps, useTimer } from "./Test";
 import { Tynput } from "../Tynput";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 interface WordTestResult {
     wpm: number;
@@ -18,6 +18,8 @@ interface WordTestProps {
 export function WordTest({ words, onDone }: WordTestProps) {
     const [wIdx, setwIdx] = useState(0);
     const [cIdx, setcIdx] = useState(0);
+
+    const correct = useState();
 
     const { beginTimer, endTimer } = useTimer();
 
@@ -38,8 +40,8 @@ export function WordTest({ words, onDone }: WordTestProps) {
         <>
             <div>
                 {words.map((word, wi) =>
-                    <Word key={wi} space={wi < words.length - 1} onSpace={cIdx >= word.length && wIdx == wi}>
-                        {word.map((c, ci) => <Char char={c} state={wi == wIdx && ci == cIdx ? "curr" : ""} key={ci} />)}
+                    <Word key={wi} hasSpace={wi < words.length - 1} isCurr={wIdx == wi} cIdx={cIdx}>
+                        {word.map((c, ci) => <Char char={c} state={wi == wIdx && ci == cIdx ? "curr" : null} key={ci} />)}
                     </Word>
                 )}
             </div>

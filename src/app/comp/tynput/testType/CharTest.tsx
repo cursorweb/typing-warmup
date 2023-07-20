@@ -28,7 +28,7 @@ export function CharTest({ chars, onDone }: CharTestProps) {
                     if (i < idx) {
                         return <Char char={c} state={wrong[i] ? "wrong" : "correct"} key={i} />;
                     } else {
-                        return <Char char={c} state={idx == i ? "curr" : ""} key={i} />;
+                        return <Char char={c} state={idx == i ? "curr" : null} key={i} />;
                     }
                 })}
             </div>

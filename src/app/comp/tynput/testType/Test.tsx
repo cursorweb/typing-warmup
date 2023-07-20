@@ -1,17 +1,30 @@
 import styles from "./Test.module.css";
 import React, { useRef, useState } from "react";
 
-export function Char({ char, state }: { char: string, state: "correct" | "wrong" | "" | "curr" }) {
+export function Char({ char, state }: { char: string, state?: "correct" | "wrong" | "curr" | "extra" | null }) {
     return (
         <pre className={`${styles.char} ${char == " " ? styles.space : ""} ${state ? styles[state] : ""}`}>{char}</pre>
     );
 }
 
-export function Word({ children, space, onSpace }: { children: React.JSX.Element[], space: boolean, onSpace: boolean }) {
+export function Word({ children, hasSpace: space, isCurr, cIdx }: { children: React.JSX.Element[], hasSpace: boolean, isCurr: boolean, cIdx: number }) {
+    const wordLength = children.length;
+    let comp: React.JSX.Element | null = null;
+
+    if (space) {
+        if (cIdx > wordLength && isCurr) {
+            comp = <Char char=" " state="extra" />;
+        } else if (cIdx == wordLength && isCurr) {
+            comp = <Char char=" " state="curr" />;
+        } else {
+            comp = <Char char=" " />;
+        }
+    }
+
     return (
         <div className={styles.word}>
             {children}
-            {space ? <Char char=" " state={onSpace ? "curr" : ""} /> : null}
+            {comp}
         </div>
     );
 }
