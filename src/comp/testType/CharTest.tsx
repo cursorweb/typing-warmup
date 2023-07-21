@@ -1,6 +1,5 @@
-import { useMemo, useRef, useState } from "react";
 import { Tynput } from "comp/tynput/Tynput";
-import { Char } from "./util/Test";
+import { Char, SmoothCursor, calcCPM, useTest } from "./util";
 
 interface CharTestResult {
     cpm: number;
@@ -14,67 +13,30 @@ interface CharTestProps {
 }
 
 export function CharTest({ chars, onDone }: CharTestProps) {
-    const [idx, setIdx] = useState(0);
-    const [wrong, setWrong] = useState<Record<number, boolean>>({});
+    const { idx, wrong, onChar, onDel } = useTest(chars, handleDone);
 
-    const spanContRef = useRef<HTMLDivElement>(null);
+    function handleDone(elapsed: number, wrongLen: number, acc: number) {
+        const wrongChars = Object.keys(wrong).map(k => chars[Number(k)]);
+        const cpm = calcCPM(chars.length, wrongLen, elapsed);
 
-    function onChar(char: string) {
-        const actual = chars[idx];
-
-        if (char != actual) {
-            setWrong({ ...wrong, [idx]: true });
-        }
-
-        setIdx(idx + 1);
+        onDone({
+            cpm,
+            wrong: wrongChars,
+            acc
+        });
     }
-
-    function onDel() {
-        if (idx == 0) {
-            return;
-        }
-
-        const pIdx = idx - 1;
-        if (wrong[pIdx]) {
-            setWrong({ ...wrong, [pIdx]: false });
-        }
-
-        setIdx(pIdx);
-    }
-
-    const pos = useMemo(() => {
-        if (spanContRef.current) {
-            const span = spanContRef.current.children[idx] as HTMLSpanElement;
-            if (!span) return { left: 0, right: 0 }; // todo
-            const left = span.offsetLeft;
-            const top = span.offsetTop;
-            return { left, top };
-        }
-    }, [idx]);
 
     return (
         <>
-            <div style={{ position: "relative" }}>
-                <div ref={spanContRef}>
-                    {chars.map((c, i) => {
-                        if (i < idx) {
-                            return <Char char={c} state={wrong[i] ? "wrong" : "correct"} key={i} />;
-                        } else {
-                            return <Char char={c} state={idx == i ? "curr" : null} key={i} />;
-                        }
-                    })}
-                </div>
-
-                <span style={{
-                    transition: "all 0.2s",
-                    height: 1.5 * 24 + "px", // the formula: fontSize * lineHeight
-                    width: "2px",
-                    borderRadius: "4px",
-                    background: "blue",
-                    position: "absolute",
-                    ...pos
-                }} />
-            </div>
+            <SmoothCursor idx={idx}>
+                {chars.map((c, i) => {
+                    if (i < idx) {
+                        return <Char char={c} state={wrong[i] ? "wrong" : "correct"} key={i} />;
+                    } else {
+                        return <Char char={c} state={idx == i ? "curr" : null} key={i} />;
+                    }
+                })}
+            </SmoothCursor>
 
             <Tynput
                 onChar={onChar}

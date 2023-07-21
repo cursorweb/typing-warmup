@@ -1,0 +1,13 @@
+.cont {
+    position: relative;
+}
+
+.caret {
+    transition: all 0.2s;
+    /* Todo: relate this to char size */
+    height: calc(1.5 * 24px);
+    width: 2px;
+    border-radius: 4px;
+    background: rgb(0, 68, 255);
+    position: absolute;
+}

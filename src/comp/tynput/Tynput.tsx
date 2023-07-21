@@ -13,7 +13,6 @@ interface TynputProps {
 
 export function Tynput({ onChar, onDel }: TynputProps) {
     const [isFocused, setIsFocused] = useState(true);
-    const inputValRef = useRef("");
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -68,7 +67,7 @@ export function Tynput({ onChar, onDel }: TynputProps) {
             </div>
 
             <input
-                // className={styles.tynput}
+                className={styles.tynput}
 
                 ref={inputRef}
 

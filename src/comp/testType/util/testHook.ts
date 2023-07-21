@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { calcAcc } from "./wpm";
 
 export function useTimer() {
     const timerRef = useRef<number>();
@@ -8,32 +9,16 @@ export function useTimer() {
     };
 }
 
-export function useTestProps() {
+export function useTest(chars: string[], onDone: (elapsed: number, wrongLen: number, acc: number) => void) {
     const [idx, setIdx] = useState(0);
-    // wrong = true (highlight it) wrong = false (just wrong)
     const [wrong, setWrong] = useState<Record<number, boolean>>({});
-    const timerRef = useRef<number>();
-
-    return {
-        idx, setIdx, wrong, setWrong,
-        beginTimer: () => timerRef.current = Date.now(),
-        endTimer: () => Date.now() - timerRef.current!
-    }
-}
-
-export function useTest(chars: string[], onDone: (data: { elapsed: number, len: number, wrongChars: number, wrong: Record<number, boolean> }) => void) {
-    const {
-        idx, setIdx,
-        wrong, setWrong,
-        beginTimer, endTimer
-    } = useTestProps();
+    const { beginTimer, endTimer } = useTimer();
 
     function onChar(char: string) {
         const actual = chars[idx];
 
         if (char != actual) {
-            wrong[idx] = true;
-            setWrong(wrong);
+            setWrong({ ...wrong, [idx]: true });
         }
 
         if (idx == 0) {
@@ -44,34 +29,24 @@ export function useTest(chars: string[], onDone: (data: { elapsed: number, len: 
             setIdx(idx + 1);
         } else {
             const elapsed = endTimer();
-            const len = chars.length;
-            const wrongChars = Object.keys(wrong).length;
-
-            onDone({ elapsed, len, wrongChars, wrong });
+            const wrongLen = Object.keys(wrong).length;
+            const acc = calcAcc(chars.length, wrongLen);
+            onDone(elapsed, wrongLen, acc);
         }
     }
 
-    function onDel(ctrl: boolean) {
-        if (idx == 0) return;
-        if (ctrl) {
-            let end = idx - 1;
-            for (; chars[end] != " " && end >= 0; end--) {
-                if (wrong[end]) {
-                    wrong[end] = false;
-                }
-            }
-
-            setWrong(wrong);
-            setIdx(end + 1);
-        } else {
-            if (wrong[idx - 1]) {
-                wrong[idx - 1] = false;
-                setWrong(wrong);
-            }
-
-            setIdx(idx - 1);
+    function onDel() {
+        if (idx == 0) {
+            return;
         }
+
+        const pIdx = idx - 1;
+        if (wrong[pIdx]) {
+            setWrong({ ...wrong, [pIdx]: false });
+        }
+
+        setIdx(pIdx);
     }
 
-    return { onChar, onDel, wrong, idx };
+    return { idx, wrong, onChar, onDel };
 }

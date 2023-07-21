@@ -1,7 +1,7 @@
 import "./App.css";
 import { Test } from "./Test";
 import { CharTest } from "comp/testType/CharTest";
-import { WordTest, wordMapToChars } from "comp/testType/WordTest";
+import { WordTest } from "comp/testType/WordTest";
 
 function App() {
     return (
@@ -9,7 +9,7 @@ function App() {
             {
                 // ... whatever var
                 <CharTest chars={"thequickbrownfoxjumpsoverthelazydog".split("")} onDone={console.log} />
-                // <WordTest words={"the quick brown fox jumps over the lazy dog".split(" ").map(k => k.split(""))} onDone={console.log} />
+                // <WordTest chars={"the quick brown fox jumps over the lazy dog".split("")} onDone={console.log} />
                 // <Test />
             }
         </div>
