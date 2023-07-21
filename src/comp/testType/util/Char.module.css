@@ -6,6 +6,9 @@
     border-right: 2px solid transparent;
     border-bottom: 1px solid transparent;
 
+    line-height: 1.5;
+    font-size: 24px;
+
     font-family: 'Roboto Mono', monospace;
 }
 
@@ -14,16 +17,11 @@
     color: white;
 }
 
-.extra {
-    border-right: 2px solid red;
-}
-
 .correct {
     color: green;
 }
 
 .curr {
-    border-right: 2px solid black;
     background: #e6e6e6;
 }
 

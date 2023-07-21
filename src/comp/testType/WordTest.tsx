@@ -1,5 +1,5 @@
-import { Char, Word, useTestProps, useTimer } from "./Test";
-import { Tynput } from "../Tynput";
+import { Char, Word, useTestProps, useTimer } from "./util/Test";
+import { Tynput } from "comp/tynput/Tynput";
 import React, { useRef, useState } from "react";
 
 interface WordTestResult {

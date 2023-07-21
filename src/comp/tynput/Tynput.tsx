@@ -3,7 +3,7 @@ import { FormEventHandler, KeyboardEventHandler, useEffect, useRef, useState } f
 
 interface TynputProps {
     onChar: (c: string) => void;
-    onDel: (ctrl: boolean) => void;
+    onDel: () => void;
     /**
      * If has words is true, then onDel(n > 1) can be called
      * Also, after typing a character, the input will *clear* if hasWords is false.
@@ -11,7 +11,7 @@ interface TynputProps {
     hasWords?: boolean;
 }
 
-export function Tynput({ onChar, onDel, hasWords = false }: TynputProps) {
+export function Tynput({ onChar, onDel }: TynputProps) {
     const [isFocused, setIsFocused] = useState(true);
     const inputValRef = useRef("");
     const inputRef = useRef<HTMLInputElement>(null);
@@ -44,34 +44,13 @@ export function Tynput({ onChar, onDel, hasWords = false }: TynputProps) {
 
     const onInput: FormEventHandler<HTMLInputElement> = e => {
         const target = e.target as HTMLInputElement;
-        if (!hasWords) {
-            onChar(target.value);
-            target.value = "";
-        } else { // if its less than it means a deletion
-            const last = target.value.slice(-1);
-            if (target.value.length > inputValRef.current.length) {
-                onChar(last);
-            }
-
-            if (last == " ") {
-                target.value = "";
-            }
-
-            inputValRef.current = target.value;
-        }
+        onChar(target.value);
+        target.value = "";
     }
 
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
         if (e.key == "Backspace") {
-            if (e.ctrlKey) {
-                onDel(true);
-            } else {
-                onDel(false);
-            }
-        }
-
-        if (hasWords && e.key == " " && (e.target as HTMLInputElement).value == "") {
-            e.preventDefault();
+            onDel();
         }
     }
 

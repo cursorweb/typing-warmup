@@ -29,30 +29,27 @@ Random ideas that have come to mind
 Look ahead (current word is hidden)
 Blind (only see current and next 2 words)
 Instant death -- as soon as you type a wrong character the whole test restarts
-Chinese?? Obviously accuracy doesn't mean anything...
-
-* Chinese Simplified
-* Chinese Traditional
-* Enable Pinyin or not
-* Preview Pinyin ^^
-
-Individual word mode: Type an individual word as fast as possible
-Guided Warmup: A selection of warmups to do.
-
-* split css into multiple files
-* load the test data as maybe json?
-* HEY ARE WE GOING TO DO REACT??????
-* some how add good component system (for pages etc)
-* maybe split tynput up to be more modular
-* typing test where you 'review' monkeytype words
-    * do the words, then repeat the incorrect words before moving on
-    * other kinds of infinite tests
-
 Fun: Common Code snippets! (Never mind maybe...)
 * C# boilerplate
 * C++ boilerplate
 * Rust boilerplate
 * HTML boilerplate (ow)
+
+## Chinese
+Chinese?? Obviously accuracy doesn't mean anything...
+* Chinese Simplified
+* Chinese Traditional
+* Enable Pinyin or not
+* Preview Pinyin ^^
+
+## Individual
+Individual word mode: Type an individual word as fast as possible
+Guided Warmup: A selection of warmups to do.
+
+## Review
+* typing test where you 'review' monkeytype words
+    * do the words, then repeat the incorrect words before moving on
+    * other kinds of infinite tests
 
 ## Repetition
 - Repeat slow & missed (you can configure this in settings)
