@@ -9,7 +9,7 @@ function App() {
             {
                 // ... whatever var
                 // <CharTest chars={"thequickbrownfoxjumpsoverthelazydog".split("")} onDone={console.log} />
-                <WordTest chars={"why not now".split('')} onDone={()=>{console.log}} />
+                <WordTest chars={"why not now".split('')} onDone={console.log} />
                 // <Test />
             }
         </div>

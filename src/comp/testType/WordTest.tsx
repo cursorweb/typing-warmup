@@ -14,23 +14,24 @@ interface WordTestProps {
     onDone: (result: WordTestResult) => void;
 }
 
-// { [start]: { ... } }
 interface WordStats {
-    data: Record<number, {
+    // { [start]: { ... } }
+    data: Record<string, {
+        end: number,
         wrong: number,
-        wIdx: number,
+        word: string,
         startDate?: number,
         endDate?: number
     }>,
     wordIdxStart: number,
-    wrong: Set<number>
+    wrong: string[]
 }
 
 export function WordTest({ chars, onDone }: WordTestProps) {
     const wordStats = useRef<WordStats>({
         data: {},
         wordIdxStart: 0,
-        wrong: new Set()
+        wrong: []
     });
 
     useEffect(() => {
@@ -39,8 +40,9 @@ export function WordTest({ chars, onDone }: WordTestProps) {
         for (let i = 0; i < chars.length; i++) {
             if (chars[i] == " ") {
                 wordStats.current.data[startI] = {
+                    end: i - 1,
                     wrong: 0,
-                    wIdx
+                    word: chars.slice(startI, i).join("")
                 };
                 wIdx++;
                 startI = i + 1;
@@ -48,8 +50,9 @@ export function WordTest({ chars, onDone }: WordTestProps) {
         }
 
         wordStats.current.data[startI] = {
+            end: chars.length - 1,
             wrong: 0,
-            wIdx
+            word: chars.slice(startI).join("")
         };
     }, []);
 
@@ -57,12 +60,16 @@ export function WordTest({ chars, onDone }: WordTestProps) {
 
     function handleDone(elapsed: number, wrongLen: number, acc: number) {
         const wpm = calcWPM(chars.length, wrongLen, elapsed);
+        const stats = wordStats.current;
 
         onDone({
             wpm,
             acc,
-            wrongWords: [],
-            wpms: [],
+            wrongWords: stats.wrong,
+            wpms: Object.keys(stats.data).map(key => {
+                const data = stats.data[key];
+                return calcWPM(data.word.length, data.wrong, data.endDate! - data.startDate!);
+            }),
         });
     }
 
@@ -70,13 +77,13 @@ export function WordTest({ chars, onDone }: WordTestProps) {
         const stats = wordStats.current;
         let sIdx = stats.wordIdxStart;
 
-        if (stats.data[idx] || idx == chars.length - 1) { // into a new bound
+        if (idx == stats.data[sIdx].end) {
             stats.data[sIdx].endDate = Date.now();
+        }
 
-            if (stats.data[idx]) {
-                sIdx = idx;
-                stats.wordIdxStart = sIdx;
-            }
+        if (stats.data[idx]) { // into a new bound
+            sIdx = idx;
+            stats.wordIdxStart = sIdx;
         }
 
         const currStat = stats.data[sIdx];
@@ -86,7 +93,7 @@ export function WordTest({ chars, onDone }: WordTestProps) {
         }
 
         if (!correct) {
-            stats.wrong.add(currStat.wIdx);
+            stats.wrong.push(currStat.word);
             currStat.wrong++;
         }
     }

@@ -16,7 +16,7 @@ export function CharTest({ chars, onDone }: CharTestProps) {
     const { idx, wrong, onChar, onDel } = useTest(chars, { handleDone });
 
     function handleDone(elapsed: number, wrongLen: number, acc: number) {
-        const wrongChars = Object.keys(wrong).map(k => chars[Number(k)]);
+        const wrongChars = Object.keys(wrong).map(k => chars[k as `${number}`]);
         const cpm = calcCPM(chars.length, wrongLen, elapsed);
 
         onDone({
