@@ -55,6 +55,7 @@ Guided Warmup: A selection of warmups to do.
 - Repeat slow & missed (you can configure this in settings)
 - Repeat entirely but you race against yourself
 - Repeat entirely but you race against an optimal wpm
+- Progressively get longer with same test??!!
 
 ## Organization
 * Method to favorite

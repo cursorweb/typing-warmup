@@ -9,7 +9,12 @@ export function useTimer() {
     };
 }
 
-export function useTest(chars: string[], onDone: (elapsed: number, wrongLen: number, acc: number) => void) {
+interface TestCallback {
+    handleDone: (elapsed: number, wrongLen: number, acc: number) => void;
+    handleIdx?: (idx: number, correct: boolean) => void;
+}
+
+export function useTest(chars: string[], { handleDone, handleIdx }: TestCallback) {
     const [idx, setIdx] = useState(0);
     const [wrong, setWrong] = useState<Record<number, boolean>>({});
     const { beginTimer, endTimer } = useTimer();
@@ -21,6 +26,8 @@ export function useTest(chars: string[], onDone: (elapsed: number, wrongLen: num
             setWrong({ ...wrong, [idx]: true });
         }
 
+        handleIdx?.(idx, char == actual);
+
         if (idx == 0) {
             beginTimer();
         }
@@ -31,7 +38,7 @@ export function useTest(chars: string[], onDone: (elapsed: number, wrongLen: num
             const elapsed = endTimer();
             const wrongLen = Object.keys(wrong).length;
             const acc = calcAcc(chars.length, wrongLen);
-            onDone(elapsed, wrongLen, acc);
+            handleDone(elapsed, wrongLen, acc);
         }
     }
 
@@ -41,6 +48,12 @@ export function useTest(chars: string[], onDone: (elapsed: number, wrongLen: num
         }
 
         const pIdx = idx - 1;
+
+        // prevent del
+        if (chars[pIdx] == " ") {
+            return;
+        }
+
         if (wrong[pIdx]) {
             setWrong({ ...wrong, [pIdx]: false });
         }

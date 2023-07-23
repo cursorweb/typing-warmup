@@ -4,7 +4,7 @@ import { Char, SmoothCursor, calcCPM, useTest } from "./util";
 interface CharTestResult {
     cpm: number;
     acc: number;
-    wrong: string[];
+    wrongChars: string[];
 }
 
 interface CharTestProps {
@@ -13,7 +13,7 @@ interface CharTestProps {
 }
 
 export function CharTest({ chars, onDone }: CharTestProps) {
-    const { idx, wrong, onChar, onDel } = useTest(chars, handleDone);
+    const { idx, wrong, onChar, onDel } = useTest(chars, { handleDone });
 
     function handleDone(elapsed: number, wrongLen: number, acc: number) {
         const wrongChars = Object.keys(wrong).map(k => chars[Number(k)]);
@@ -21,7 +21,7 @@ export function CharTest({ chars, onDone }: CharTestProps) {
 
         onDone({
             cpm,
-            wrong: wrongChars,
+            wrongChars: wrongChars,
             acc
         });
     }
