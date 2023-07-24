@@ -1,12 +1,15 @@
 import { Tynput } from "comp/tynput/Tynput";
 import { useTest, SmoothCursor, Char, calcWPM } from "./util";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 
-interface WordTestResult {
+export interface WordTestResult {
     wpm: number;
     acc: number;
     wrongWords: string[];
-    wpms: number[];
+    wpms: {
+        wpm: number,
+        word: string
+    }[];
 }
 
 interface WordTestProps {
@@ -24,14 +27,16 @@ interface WordStats {
         endDate?: number
     }>,
     wordIdxStart: number,
-    wrong: string[]
+    wrong: Set<string>,
+    words: string[]
 }
 
 export function WordTest({ chars, onDone }: WordTestProps) {
     const wordStats = useRef<WordStats>({
         data: {},
         wordIdxStart: 0,
-        wrong: []
+        wrong: new Set(),
+        words: []
     });
 
     useEffect(() => {
@@ -65,10 +70,13 @@ export function WordTest({ chars, onDone }: WordTestProps) {
         onDone({
             wpm,
             acc,
-            wrongWords: stats.wrong,
+            wrongWords: [...stats.wrong],
             wpms: Object.keys(stats.data).map(key => {
                 const data = stats.data[key];
-                return calcWPM(data.word.length, data.wrong, data.endDate! - data.startDate!);
+                return {
+                    wpm: calcWPM(data.word.length, data.wrong, data.endDate! - data.startDate!),
+                    word: data.word
+                };
             }),
         });
     }
@@ -93,7 +101,7 @@ export function WordTest({ chars, onDone }: WordTestProps) {
         }
 
         if (!correct) {
-            stats.wrong.push(currStat.word);
+            stats.wrong.add(currStat.word);
             currStat.wrong++;
         }
     }
