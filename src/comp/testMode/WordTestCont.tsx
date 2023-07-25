@@ -1,16 +1,16 @@
-import { CharTestResult } from "comp/testType/CharTest";
+import { WordTestResult } from "comp/testType/WordTest";
 import { useState, useRef, useEffect } from "react";
 import { TestCont } from "./TestCont";
 
-interface CharTestContProps {
+interface WordTestContProps {
     /**
      * Make sure this has `key={random}`
      */
-    genTest(doneCallback: (res: CharTestResult) => void): React.JSX.Element;
-    genResult(result: CharTestResult, redoTest: (el: React.JSX.Element) => void): React.JSX.Element;
+    genTest(doneCallback: (res: WordTestResult) => void): React.JSX.Element;
+    genResult(result: WordTestResult, redoTest: (el: React.JSX.Element) => void): React.JSX.Element;
 }
 
-export function CharTestCont({ genTest, genResult }: CharTestContProps) {
+export function WordTestCont({ genTest, genResult }: WordTestContProps) {
     const [render, setRender] = useState(genTest(doneCallback));
     const [isTyping, setisTyping] = useState(true);
 
@@ -25,7 +25,7 @@ export function CharTestCont({ genTest, genResult }: CharTestContProps) {
         });
     }, []);
 
-    function doneCallback(res: CharTestResult) {
+    function doneCallback(res: WordTestResult) {
         setisTyping(false);
         setRender(genResult(res, el => setRender(el)));
     }
