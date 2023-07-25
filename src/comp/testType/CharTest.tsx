@@ -1,7 +1,7 @@
 import { Tynput } from "comp/tynput/Tynput";
 import { Char, SmoothCursor, calcCPM, useTest } from "./util";
 
-interface CharTestResult {
+export interface CharTestResult {
     cpm: number;
     acc: number;
     wrongChars: string[];

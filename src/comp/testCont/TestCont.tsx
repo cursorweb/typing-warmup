@@ -1,16 +1,41 @@
 import { useRef, useEffect, useState } from "react";
 import styles from "./TestCont.module.css";
 import React from "react";
+import { CharTestResult } from "comp/testType/CharTest";
+import { WordTestResult } from "comp/testType/WordTest";
 
-interface TestContProps<T> {
+
+export function TestCont({ restart, children, isTyping }: { restart: () => void, isTyping: boolean } & React.PropsWithChildren) {
+    const restartButtonRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        document.body.addEventListener("keydown", e => {
+            if (e.key == "Tab") {
+                restartButtonRef.current?.click();
+                e.preventDefault();
+            }
+        });
+    }, []);
+
+    return (
+        <div>
+            {isTyping
+                ? <div className={styles.testCont}>{children}</div>
+                : children}
+            <button onClick={restart} ref={restartButtonRef}>Restart (Tab)</button>
+        </div>
+    );
+}
+
+interface WordTestContProps {
     /**
      * Make sure this has `key={random}`
      */
-    genTest(doneCallback: (res: T) => void): React.JSX.Element;
-    genResult(result: T, redoTest: (el: React.JSX.Element) => void): React.JSX.Element;
+    genTest(doneCallback: (res: WordTestResult) => void): React.JSX.Element;
+    genResult(result: WordTestResult, redoTest: (el: React.JSX.Element) => void): React.JSX.Element;
 }
 
-export function TestCont<T>({ genTest, genResult }: TestContProps<T>) {
+export function WordTestCont({ genTest, genResult }: WordTestContProps) {
     const [render, setRender] = useState(genTest(doneCallback));
     const [isTyping, setisTyping] = useState(true);
 
@@ -25,7 +50,7 @@ export function TestCont<T>({ genTest, genResult }: TestContProps<T>) {
         });
     }, []);
 
-    function doneCallback(res: T) {
+    function doneCallback(res: WordTestResult) {
         setisTyping(false);
         setRender(genResult(res, el => setRender(el)));
     }
