@@ -1,19 +1,27 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import tests from "data/tests.json";
 import "./App.css";
-import { CharTest, CharTestResult } from "comp/testType/CharTest";
-import { WordTest, WordTestResult } from "comp/testType/WordTest";
 import { CharTestCont } from "comp/testMode/CharTestCont";
-import { WordTestCont } from "comp/testMode/WordTestCont";
 
 export default function App() {
-    const chars = "the quick brown fox jumps over the lazy dog".split('');
-    // const chars = "thequickbrownfoxjumpsoverthelazydog".split('');
+    const [idx, setIdx] = useState<number | null>(null);
 
     return (
         <>
-            <WordTestCont
-                genText={() => chars}
-            />
+            <div>
+                {tests.map((data, i) =>
+                    <div key={i} style={{ display: "inline-block", margin: 10 }}>
+                        <div>{data.title}</div>
+                        <div>{data.desc}</div>
+                        <button onClick={() => setIdx(i)}>Begin</button>
+                    </div>
+                )}
+            </div>
+            {idx != null ? <CharTestCont genText={() => genText(tests[idx].list)} key={Math.random()} /> : null}
         </>
     );
+}
+
+function genText(list: string[]) {
+    return new Array(50).fill(null).map(() => list[Math.floor(Math.random() * list.length)]);
 }
