@@ -2,8 +2,9 @@ import { Tynput } from "comp/tynput/Tynput";
 import { Char, SmoothCursor, calcCPM, useTest } from "./util";
 
 export interface CharTestResult {
-    cpm: number;
-    acc: number;
+    cpm: string;
+    wpm: string;
+    acc: string;
     wrongChars: string[];
 }
 
@@ -15,12 +16,13 @@ interface CharTestProps {
 export function CharTest({ chars, onDone }: CharTestProps) {
     const { idx, wrong, onChar, onDel } = useTest(chars, { handleDone });
 
-    function handleDone(elapsed: number, wrongLen: number, acc: number) {
+    function handleDone(elapsed: number, wrongLen: number, acc: string) {
         const wrongChars = Object.keys(wrong).map(k => chars[k as `${number}`]);
         const cpm = calcCPM(chars.length, wrongLen, elapsed);
 
         onDone({
-            cpm,
+            cpm: cpm.toFixed(2),
+            wpm: (cpm / 5).toFixed(2),
             wrongChars: wrongChars,
             acc
         });

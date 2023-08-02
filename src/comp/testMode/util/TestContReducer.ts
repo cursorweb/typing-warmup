@@ -6,7 +6,9 @@ interface TestContState {
     genTest: () => React.JSX.Element
 }
 
-type TestContAction = { type: "restart" } | { type: "redo", genTest: () => React.JSX.Element } | { type: "done", render: React.JSX.Element };
+type TestContAction = { type: "restart" }
+    | { type: "redo", genTest: () => React.JSX.Element }
+    | { type: "done", render: React.JSX.Element };
 
 export function reducer(state: TestContState, action: TestContAction): TestContState {
     switch (action.type) {
@@ -20,11 +22,9 @@ export function reducer(state: TestContState, action: TestContAction): TestContS
 }
 
 export function useTestReducer(genTest: () => React.JSX.Element) {
-    return useReducer(reducer, null, () => {
-        return {
-            isTyping: true,
-            render: genTest(),
-            genTest
-        }
-    });
+    return useReducer(reducer, null, () => ({
+        isTyping: true,
+        render: genTest(),
+        genTest
+    }));
 }

@@ -10,13 +10,14 @@ export function useTimer() {
 }
 
 interface TestCallback {
-    handleDone: (elapsed: number, wrongLen: number, acc: number) => void;
+    handleDone: (elapsed: number, wrongLen: number, acc: string) => void;
     handleIdx?: (idx: number, correct: boolean) => void;
 }
 
 export function useTest(chars: string[], { handleDone, handleIdx }: TestCallback) {
     const [idx, setIdx] = useState(0);
     const [wrong, setWrong] = useState<Record<number, boolean>>({});
+    const [done, setDone] = useState(false);
     const { beginTimer, endTimer } = useTimer();
 
     function onChar(char: string) {
@@ -38,7 +39,7 @@ export function useTest(chars: string[], { handleDone, handleIdx }: TestCallback
             const elapsed = endTimer();
             const wrongLen = Object.keys(wrong).length;
             const acc = calcAcc(chars.length, wrongLen);
-            handleDone(elapsed, wrongLen, acc);
+            handleDone(elapsed, wrongLen, acc.toFixed(2));
         }
     }
 
@@ -61,5 +62,5 @@ export function useTest(chars: string[], { handleDone, handleIdx }: TestCallback
         setIdx(pIdx);
     }
 
-    return { idx, wrong, onChar, onDel };
+    return { idx, wrong, done, setDone, onChar, onDel };
 }

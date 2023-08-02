@@ -2,10 +2,18 @@ import { useState } from "react";
 import tests from "data/tests.json";
 import "./App.css";
 import { CharTestCont } from "comp/testMode/CharTestCont";
+import { WarmupCont } from "comp/testMode/WarmupCont";
 
 export default function App() {
     const [idx, setIdx] = useState<number | null>(null);
 
+    return (
+        <>
+            <WarmupCont wIdx={0} />
+        </>
+    )
+
+    /*
     return (
         <>
             <div>
@@ -20,6 +28,7 @@ export default function App() {
             {idx != null ? <CharTestCont genText={() => genText(tests[idx].list)} key={Math.random()} /> : null}
         </>
     );
+    */
 }
 
 function genText(list: string[]) {

@@ -10,8 +10,8 @@ export function CharTestCont({ genText }: { genText: () => string[] }) {
             type: "done",
             render: (
                 <div>
-                    <div>{res.cpm.toFixed(2)} CPM ({(res.cpm / 5).toFixed(2)} WPM)</div>
-                    <div>{res.acc.toFixed(2)}% ACC</div>
+                    <div>{res.cpm} CPM ({res.wpm} WPM)</div>
+                    <div>{res.acc}% ACC</div>
                     <div>{res.wrongChars.map((c, i) => <span key={i}>{c}{' '}</span>)}</div>
                     <PracticeButton onClick={() =>
                         dispatch({

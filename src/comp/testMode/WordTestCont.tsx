@@ -10,8 +10,8 @@ export function WordTestCont({ genText }: { genText: () => string[] }) {
             type: "done",
             render: (
                 <div>
-                    <div>{res.wpm.toFixed(2)} WPM</div>
-                    <div>{res.acc.toFixed(2)}% ACC</div>
+                    <div>{res.wpm} WPM</div>
+                    <div>{res.acc}% ACC</div>
                     <div>
                         {res.wpms.map(({ wpm, word }, i) =>
                             <div style={{ display: "inline-block", margin: 10 }} key={i}>

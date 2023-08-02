@@ -3,8 +3,8 @@ import { useTest, SmoothCursor, Char, calcWPM } from "./util";
 import { useEffect, useRef } from "react";
 
 export interface WordTestResult {
-    wpm: number;
-    acc: number;
+    wpm: string;
+    acc: string;
     wrongWords: string[];
     wpms: {
         wpm: number,
@@ -63,12 +63,12 @@ export function WordTest({ chars, onDone }: WordTestProps) {
 
     const { idx, wrong, onChar, onDel } = useTest(chars, { handleDone, handleIdx });
 
-    function handleDone(elapsed: number, wrongLen: number, acc: number) {
+    function handleDone(elapsed: number, wrongLen: number, acc: string) {
         const wpm = calcWPM(chars.length, wrongLen, elapsed);
         const stats = wordStats.current;
 
         onDone({
-            wpm,
+            wpm: wpm.toFixed(2),
             acc,
             wrongWords: [...stats.wrong],
             wpms: Object.keys(stats.data).map(key => {
